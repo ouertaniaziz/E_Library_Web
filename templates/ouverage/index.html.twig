@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ouverage index{% endblock %}
+
+{% block body %}
+    <h1>Ouverage index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomLivre</th>
+                <th>GenreLivre</th>
+                <th>NbrEmprunt</th>
+                <th>NbrVente</th>
+                <th>PrixVente</th>
+                <th>PrixEmprunt</th>
+                <th>ImgLivre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ouverage in ouverages %}
+            <tr>
+                <td>{{ ouverage.id }}</td>
+                <td>{{ ouverage.nomLivre }}</td>
+                <td>{{ ouverage.genreLivre }}</td>
+                <td>{{ ouverage.nbrEmprunt }}</td>
+                <td>{{ ouverage.nbrVente }}</td>
+                <td>{{ ouverage.prixVente }}</td>
+                <td>{{ ouverage.prixEmprunt }}</td>
+                <td>{{ ouverage.imgLivre }}</td>
+                <td>
+                    <a href="{{ path('app_ouverage_show', {'id': ouverage.id}) }}">show</a>
+                    <a href="{{ path('app_ouverage_edit', {'id': ouverage.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ouverage_new') }}">Create new</a>
+{% endblock %}

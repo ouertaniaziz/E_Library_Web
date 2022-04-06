@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ouverage{% endblock %}
+
+{% block body %}
+    <h1>Ouverage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ouverage.id }}</td>
+            </tr>
+            <tr>
+                <th>NomLivre</th>
+                <td>{{ ouverage.nomLivre }}</td>
+            </tr>
+            <tr>
+                <th>GenreLivre</th>
+                <td>{{ ouverage.genreLivre }}</td>
+            </tr>
+            <tr>
+                <th>NbrEmprunt</th>
+                <td>{{ ouverage.nbrEmprunt }}</td>
+            </tr>
+            <tr>
+                <th>NbrVente</th>
+                <td>{{ ouverage.nbrVente }}</td>
+            </tr>
+            <tr>
+                <th>PrixVente</th>
+                <td>{{ ouverage.prixVente }}</td>
+            </tr>
+            <tr>
+                <th>PrixEmprunt</th>
+                <td>{{ ouverage.prixEmprunt }}</td>
+            </tr>
+            <tr>
+                <th>ImgLivre</th>
+                <td>{{ ouverage.imgLivre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ouverage_index') }}">back to list</a>
+
+    <a href="{{ path('app_ouverage_edit', {'id': ouverage.id}) }}">edit</a>
+
+    {{ include('ouverage/_delete_form.html.twig') }}
+{% endblock %}

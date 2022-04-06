@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ouverage{% endblock %}
+
+{% block body %}
+    <h1>Edit Ouverage</h1>
+
+    {{ include('ouverage/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_ouverage_index') }}">back to list</a>
+
+    {{ include('ouverage/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body %}
+    <h1>Users</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdUser</th>
+                <td>{{ user.idUser }}</td>
+            </tr>
+            <tr>
+                <th>NomUser</th>
+                <td>{{ user.nomUser }}</td>
+            </tr>
+            <tr>
+                <th>PrenomUser</th>
+                <td>{{ user.prenomUser }}</td>
+            </tr>
+            <tr>
+                <th>EmailUser</th>
+                <td>{{ user.emailUser }}</td>
+            </tr>
+            <tr>
+                <th>MdpUser</th>
+                <td>{{ user.mdpUser }}</td>
+            </tr>
+            <tr>
+                <th>TelUser</th>
+                <td>{{ user.telUser }}</td>
+            </tr>
+            <tr>
+                <th>Abonnement</th>
+                <td>{{ user.abonnement }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ user.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ user.code }}</td>
+            </tr>
+            <tr>
+                <th>Bloquer</th>
+                <td>{{ user.bloquer }}</td>
+            </tr>
+            <tr>
+                <th>Remember</th>
+                <td>{{ user.remember }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_users_index') }}">back to list</a>
+
+    <a href="{{ path('app_users_edit', {'idUser': user.idUser}) }}">edit</a>
+
+    {{ include('users/_delete_form.html.twig') }}
+{% endblock %}
