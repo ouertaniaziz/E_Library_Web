@@ -28,6 +28,17 @@ class OffreController extends AbstractController
             'offres' => $offres,
         ]);
     }
+    /**
+     * @Route("/client", name="client_index")
+     */
+    public function index_client(EntityManagerInterface $entityManager): Response
+    {
+
+
+        return $this->render('Client/client.html.twig'
+
+        );
+    }
 
     /**
      * @Route("/new", name="app_offre_new", methods={"GET", "POST"})
