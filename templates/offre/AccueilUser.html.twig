@@ -1,8 +1,36 @@
 {% extends 'base.html.twig' %}
+{% block title %}Offre{% endblock %}
 {% block body %}
 <body class="main-layout">
-testt
+<div class="ourwork">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>nos offres</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for offre in offres  %}
+            <div class="col-md-4">
+                <div class="our_box">
+                    {{ offre.nomOffre }}
+                    {{ offre.prixOffre }}
+                    <figure><img src="{{ asset('Front/images/LOGO1.png') }}" alt="#" /></figure>
+                </div>
+            </div>
+            {% else %}
+                colspan="6">no records found
+            {% endfor %}
+
+        </div>
+
+    </div>
+</div>
 
 
+{{ knp_pagination_render(offres) }}
 </body>
+
 {% endblock %}

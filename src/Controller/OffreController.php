@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/offre")
@@ -31,11 +32,19 @@ class OffreController extends AbstractController
     /**
      * @Route("/AccueilUser", name="app_offre_AccueilUser")
      */
-    public function index_client(EntityManagerInterface $entityManager): Response
+    public function index_client(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
-
-
-        return $this->render('offre/AccueilUser.html.twig'
+        $donnees = $entityManager
+            ->getRepository(Offre::class)
+            ->findAll();
+        $offres=$paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+           3// Nombre de résultats par page
+        );
+        return $this->render('offre/AccueilUser.html.twig',[
+        'offres' => $offres,
+        ]
 
         );
     }
