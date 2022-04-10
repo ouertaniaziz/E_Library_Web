@@ -1,10 +1,11 @@
-##PHP version php8.0
+## PHP version php8.0
 
-##pour créer une migration 
-bin/console doctrine:migration:generate
+## pour créer une migration 
 
-##pour appliquer la dernière migration
-bin/console doctrine:migration:migrate
+`bin/console doctrine:migration:generate`
 
-pour environnement dev : 
-##bin/console doctrine:schema:update --force
+## pour appliquer la dernière migration
+`bin/console doctrine:migration:migrate`
+
+## pour environnement dev : 
+`bin/console doctrine:schema:update --force`
