@@ -15,9 +15,11 @@
             {% for offre in offres  %}
             <div class="col-md-4">
                 <div class="our_box">
-                    {{ offre.nomOffre }}
-                    {{ offre.prixOffre }}
+
                     <figure><img src="{{ asset('Front/images/LOGO1.png') }}" alt="#" /></figure>
+                    <div class="col-md-12">  OFFRE  :{{ offre.nomOffre }}</div>
+                    <div class="col-md-12"> LE PRIX DE L'OFFRE  :{{ offre.prixOffre }}</div>
+                    <div class="col-md-12"> NOMBRE DE JETON  :{{ offre.nbrJetonOffre }}</div>
                 </div>
             </div>
             {% else %}
