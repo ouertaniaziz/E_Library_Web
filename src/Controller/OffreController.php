@@ -29,13 +29,13 @@ class OffreController extends AbstractController
         ]);
     }
     /**
-     * @Route("/client", name="client_index")
+     * @Route("/AccueilUser", name="app_offre_AccueilUser")
      */
     public function index_client(EntityManagerInterface $entityManager): Response
     {
 
 
-        return $this->render('Client/client.html.twig'
+        return $this->render('offre/AccueilUser.html.twig'
 
         );
     }

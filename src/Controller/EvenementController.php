@@ -28,7 +28,17 @@ class EvenementController extends AbstractController
             'evenements' => $evenements,
         ]);
     }
+    /**
+     * @Route("/AccueilUser", name="app_evenement_AccueilUser")
+     */
+    public function index_client(EntityManagerInterface $entityManager): Response
+    {
 
+
+        return $this->render('evenement/AccueilUser.html.twig'
+
+        );
+    }
     /**
      * @Route("/new", name="app_evenement_new", methods={"GET", "POST"})
      */
