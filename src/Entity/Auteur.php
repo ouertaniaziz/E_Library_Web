@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,18 @@ class Auteur
      */
     private $photoAuteur;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ouverage::class, mappedBy="auteur")
+     */
+    private $ouverages;
+
+
+
+    public function __construct()
+    {
+        $this->ouverages = new ArrayCollection();
+    }
+
     public function getIdAuteur(): ?int
     {
         return $this->idAuteur;
@@ -79,6 +93,36 @@ class Auteur
     public function setPhotoAuteur(string $photoAuteur): self
     {
         $this->photoAuteur = $photoAuteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ouverage>
+     */
+    public function getOuverages(): Collection
+    {
+        return $this->ouverages;
+    }
+
+    public function addOuverage(Ouverage $ouverage): self
+    {
+        if (!$this->ouverages->contains($ouverage)) {
+            $this->ouverages[] = $ouverage;
+            $ouverage->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOuverage(Ouverage $ouverage): self
+    {
+        if ($this->ouverages->removeElement($ouverage)) {
+            // set the owning side to null (unless already changed)
+            if ($ouverage->getAuteur() === $this) {
+                $ouverage->setAuteur(null);
+            }
+        }
 
         return $this;
     }

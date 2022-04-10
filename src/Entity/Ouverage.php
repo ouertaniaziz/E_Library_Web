@@ -80,6 +80,12 @@ class Ouverage
     private $idCommande;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="ouverages")
+     * @ORM\JoinColumn(name="auteur_id", referencedColumnName="ID_auteur")
+     */
+    private $auteur;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -199,6 +205,18 @@ class Ouverage
         if ($this->idCommande->removeElement($idCommande)) {
             $idCommande->removeIdOuvrage($this);
         }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Auteur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Auteur $auteur): self
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }
