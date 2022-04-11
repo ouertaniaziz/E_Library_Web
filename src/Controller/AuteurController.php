@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Auteur;
 use App\Form\AuteurType;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/auteur")
+ * @Route("/admin/auteur")
  */
 class AuteurController extends AbstractController
 {
@@ -32,13 +34,19 @@ class AuteurController extends AbstractController
     /**
      * @Route("/new", name="app_auteur_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
     {
         $auteur = new Auteur();
         $form = $this->createForm(AuteurType::class, $auteur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['photoFile']->getData();
+            if ($uploadedFile) {
+                $newFileName = $uploaderHelper->uploadFile($uploadedFile);
+                $auteur->setPhotoAuteur($newFileName);
+            }
             $entityManager->persist($auteur);
             $entityManager->flush();
 
@@ -64,13 +72,23 @@ class AuteurController extends AbstractController
     /**
      * @Route("/{idAuteur}/edit", name="app_auteur_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
     {
         $form = $this->createForm(AuteurType::class, $auteur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['photoFile']->getData();
+            if ($uploadedFile) {
+                $newFileName = $uploaderHelper->uploadFile($uploadedFile);
+                $auteur->setPhotoAuteur($newFileName);
+            }
+            $entityManager->persist($auteur);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Auteur mis à jour');
 
             return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -86,11 +104,22 @@ class AuteurController extends AbstractController
      */
     public function delete(Request $request, Auteur $auteur, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$auteur->getIdAuteur(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $auteur->getIdAuteur(), $request->request->get('_token'))) {
             $entityManager->remove($auteur);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/admin/upload/test", name="upload_test")
+     */
+    public function temporaryUploadAction(Request $request)
+    {
+        /** @var UploadedFile $uploadedFile */
+        $uploadedFile = $request->files->get('image');
+
+
     }
 }
