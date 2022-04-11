@@ -3,15 +3,16 @@
 {% block title %}Auteur index{% endblock %}
 
 {% block body %}
-    <h1>Auteur index</h1>
+<div class="container-fluid">
+    <h2>Liste des Auteurs</h2>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdAuteur</th>
-                <th>NomAuteur</th>
-                <th>PrenomAuteur</th>
-                <th>PhotoAuteur</th>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Photo</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -29,11 +30,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">pas d'auteur trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+    
     <a href="{{ path('app_auteur_new') }}">Create new</a>
+    </div>
 {% endblock %}

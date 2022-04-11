@@ -20,6 +20,7 @@ class OuverageType extends AbstractType
             ->add('prixEmprunt')
             ->add('imgLivre')
             ->add('idCommande')
+            ->add('auteur')
         ;
     }
 
