@@ -45,7 +45,7 @@
             <!-- sidebar -->
             <script src="{{ asset('Front/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
             <script src="{{ asset('Front/js/custom.js') }}"></script>
-            <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
         {% endblock %}
         {% block head %}
             <header>
@@ -96,7 +96,9 @@
         {% endblock %}
     </head>
     <body>
-
+    {% block flashmessage %}
+        {% include 'flashMessage.html.twig' %}
+    {% endblock %}
         {% block body %}
 
         {% endblock %}
