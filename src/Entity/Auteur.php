@@ -130,5 +130,10 @@ class Auteur
         return $this;
     }
 
+    public function getPhotoPath(): string
+    {
+        return "/uploads/auteurs_photo/".$this->photoAuteur;
+    }
+
 
 }
