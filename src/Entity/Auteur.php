@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Auteur
@@ -27,6 +28,7 @@ class Auteur
      * @var string
      *
      * @ORM\Column(name="Nom_auteur", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Nom auteur obligatoir")
      */
     private $nomAuteur;
 
@@ -34,13 +36,14 @@ class Auteur
      * @var string
      *
      * @ORM\Column(name="Prenom_auteur", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Prenom auteur est obligatoir")
      */
     private $prenomAuteur;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="photo_auteur", type="string", length=50, nullable=false)
+     * @ORM\Column(name="photo_auteur", type="string", length=50, nullable=true)
      */
     private $photoAuteur;
 

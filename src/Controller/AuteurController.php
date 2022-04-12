@@ -49,7 +49,7 @@ class AuteurController extends AbstractController
             }
             $entityManager->persist($auteur);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Auteur ajouté avec succès');
             return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
         }
 

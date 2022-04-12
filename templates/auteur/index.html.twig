@@ -24,8 +24,8 @@
                 <td>{{ auteur.prenomAuteur }}</td>
                 <td>{{ auteur.photoAuteur }}</td>
                 <td>
-                    <a href="{{ path('app_auteur_show', {'idAuteur': auteur.idAuteur}) }}">show</a>
-                    <a href="{{ path('app_auteur_edit', {'idAuteur': auteur.idAuteur}) }}">edit</a>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_auteur_show', {'idAuteur': auteur.idAuteur}) }}"><span class="fa fa-search-plus"></span></a>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_auteur_edit', {'idAuteur': auteur.idAuteur}) }}"><span class="fa fa-pencil"></span></a>
                 </td>
             </tr>
         {% else %}
