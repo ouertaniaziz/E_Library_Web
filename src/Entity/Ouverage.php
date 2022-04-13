@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ouverage
  *
  * @ORM\Table(name="ouverage")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\OuverageRepository")
  */
 class Ouverage
 {
@@ -27,6 +28,7 @@ class Ouverage
      * @var string
      *
      * @ORM\Column(name="Nom_livre", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="nom livre obligatoire")
      */
     private $nomLivre;
 
@@ -34,20 +36,21 @@ class Ouverage
      * @var string
      *
      * @ORM\Column(name="genre_livre", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="genre est obligatoire")
      */
     private $genreLivre;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nbr_emprunt", type="integer", nullable=false)
+     * @ORM\Column(name="nbr_emprunt", type="integer", nullable=true)
      */
     private $nbrEmprunt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nbr_vente", type="integer", nullable=false)
+     * @ORM\Column(name="nbr_vente", type="integer", nullable=true)
      */
     private $nbrVente;
 
@@ -55,6 +58,7 @@ class Ouverage
      * @var int
      *
      * @ORM\Column(name="prix_vente", type="integer", nullable=false)
+     * @Assert\GreaterThan(0, message="doit etre un montant positif")
      */
     private $prixVente;
 
@@ -62,6 +66,7 @@ class Ouverage
      * @var int
      *
      * @ORM\Column(name="prix_emprunt", type="integer", nullable=false)
+     * @Assert\Positive(message="doit etre un montant positif")
      */
     private $prixEmprunt;
 
@@ -219,6 +224,11 @@ class Ouverage
         $this->auteur = $auteur;
 
         return $this;
+    }
+
+    public function getImagePath(): string
+    {
+        return "/uploads/ouverages_image/".$this->imgLivre;
     }
 
 }
