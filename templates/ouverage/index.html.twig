@@ -9,18 +9,18 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>NomLivre</th>
-                <th>GenreLivre</th>
-                <th>NbrEmprunt</th>
-                <th>NbrVente</th>
-                <th>PrixVente</th>
-                <th>PrixEmprunt</th>
-                <th>ImgLivre</th>
+                <th>Nom Livre</th>
+                <th>Genre Livre</th>
+                <th>Nombre Emprunt</th>
+                <th>Nombre Vente</th>
+                <th>Prix Vente</th>
+                <th>Prix Emprunt</th>
+                <th>Cover Livre</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for ouverage in ouverages %}
+        {% for ouverage in pagination %}
             <tr>
                 <td>{{ ouverage.id }}</td>
                 <td>{{ ouverage.nomLivre }}</td>
@@ -29,10 +29,10 @@
                 <td>{{ ouverage.nbrVente }}</td>
                 <td>{{ ouverage.prixVente }}</td>
                 <td>{{ ouverage.prixEmprunt }}</td>
-                <td>{{ ouverage.imgLivre }}</td>
+                <td> <img width="200" height="200" src="{{ asset(ouverage.imagePath) }}"></td>
                 <td>
-                    <a href="{{ path('app_ouverage_show', {'id': ouverage.id}) }}">show</a>
-                    <a href="{{ path('app_ouverage_edit', {'id': ouverage.id}) }}">edit</a>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_ouverage_show', {'id': ouverage.id}) }}"><span class="fa fa-search-plus"></span></a>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_ouverage_edit', {'id': ouverage.id}) }}"><span class="fa fa-pencil"></span></a>
                 </td>
             </tr>
         {% else %}
@@ -42,6 +42,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_ouverage_new') }}">Create new</a>
+    {{ knp_pagination_render(pagination) }}
+    <a class="btn btn-xs btn-primary" href="{{ path('app_ouverage_new') }}"><span class="fa fa-plus-circle"> Nouveau</span></a>
 {% endblock %}

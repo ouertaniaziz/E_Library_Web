@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Auteur;
 use App\Form\AuteurType;
 use App\Service\UploaderHelper;
+use App\Service\UploadType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,21 +22,29 @@ class AuteurController extends AbstractController
     /**
      * @Route("/", name="app_auteur_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request$request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
-        $auteurs = $entityManager
+       /* $auteurs = $entityManager
             ->getRepository(Auteur::class)
             ->findAll();
-
+       */
+        $queryBuilder = $entityManager->getRepository(Auteur::class)->findAllQueryBuilder();
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            3
+        );
         return $this->render('auteur/index.html.twig', [
-            'auteurs' => $auteurs,
+            //'auteurs' => $auteurs,
+            'pagination' => $pagination,
         ]);
     }
 
     /**
      * @Route("/new", name="app_auteur_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,
+                        UploaderHelper $uploaderHelper): Response
     {
         $auteur = new Auteur();
         $form = $this->createForm(AuteurType::class, $auteur);
@@ -44,12 +54,12 @@ class AuteurController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['photoFile']->getData();
             if ($uploadedFile) {
-                $newFileName = $uploaderHelper->uploadFile($uploadedFile);
+                $newFileName = $uploaderHelper->uploadFile($uploadedFile, self::class);
                 $auteur->setPhotoAuteur($newFileName);
             }
             $entityManager->persist($auteur);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Auteur ajouté avec succès');
             return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +82,8 @@ class AuteurController extends AbstractController
     /**
      * @Route("/{idAuteur}/edit", name="app_auteur_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
+    public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager,
+                         UploaderHelper $uploaderHelper): Response
     {
         $form = $this->createForm(AuteurType::class, $auteur);
         $form->handleRequest($request);
@@ -82,7 +93,7 @@ class AuteurController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['photoFile']->getData();
             if ($uploadedFile) {
-                $newFileName = $uploaderHelper->uploadFile($uploadedFile);
+                $newFileName = $uploaderHelper->uploadFile($uploadedFile, 'AUTEUR');
                 $auteur->setPhotoAuteur($newFileName);
             }
             $entityManager->persist($auteur);
