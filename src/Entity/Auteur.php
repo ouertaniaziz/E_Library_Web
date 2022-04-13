@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Auteur
  *
  * @ORM\Table(name="auteur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AuteurRepository")
  */
 class Auteur
 {
@@ -28,17 +28,17 @@ class Auteur
      * @var string
      *
      * @ORM\Column(name="Nom_auteur", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message="Nom auteur obligatoir")
+     * @Assert\NotBlank(message="nom auteur est obligatoir")
      */
-    private $nomAuteur;
+    private string $nomAuteur;
 
     /**
      * @var string
      *
      * @ORM\Column(name="Prenom_auteur", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message="Prenom auteur est obligatoir")
+     * @Assert\NotBlank(message="prenom auteur est obligatoir")
      */
-    private $prenomAuteur;
+    private string $prenomAuteur;
 
     /**
      * @var string
@@ -69,7 +69,7 @@ class Auteur
         return $this->nomAuteur;
     }
 
-    public function setNomAuteur(string $nomAuteur): self
+    public function setNomAuteur(?string $nomAuteur): self
     {
         $this->nomAuteur = $nomAuteur;
 
@@ -81,7 +81,7 @@ class Auteur
         return $this->prenomAuteur;
     }
 
-    public function setPrenomAuteur(string $prenomAuteur): self
+    public function setPrenomAuteur(?string $prenomAuteur): self
     {
         $this->prenomAuteur = $prenomAuteur;
 

@@ -1,21 +1,8 @@
 {{ form_start(form) }}
-<div class="form-group">
-{{ form_row(form.nomAuteur, {
-    attr: {
-        'class': 'form-control'
-    }
-}) }}
-{{ form_row(form.prenomAuteur, {
-    attr: {
-        'class': 'form-control'
-    }
-}) }}
-{{ form_row(form.photoFile, {
-    attr: {
-        'placeholder': 'Choisir photo d\'auteur',
-        'class': 'form-control'
-    }
-}) }}
-</div>
+{{ form_errors(form) }}
+{{ form_row(form.nomAuteur) }}
+{{ form_row(form.prenomAuteur) }}
+{{ form_row(form.photoFile) }}
+
     <button class="btn btn-primary" formnovalidate>{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
