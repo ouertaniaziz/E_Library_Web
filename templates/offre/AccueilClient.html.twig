@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Offre{% endblock %}
+{% block body %}
+    <body class="main-layout">
+    <div class="ourwork">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>nos offres</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for offre in offres  %}
+
+                    <div class="col-md-4">
+                        <div class="our_box">
+                            <div class="jonu">
+                                <img src="{{ asset('Front/images/LOGO1.png') }}" alt="#"/>
+                                <h3>{{ offre.nomOffre }}</h3>
+                                <strong>Prix: {{ offre.prixOffre }} , NOMBRE DE JETON:{{ offre.nbrJetonOffre }}</strong>
+                                <a class="read_more" href="{{ path('app_offre_show_Client', {'idOffre': offre.idOffre}) }}">acheter</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    colspan="6">no records found
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+
+    {{ knp_pagination_render(offres) }}
+    </body>
+
+{% endblock %}

@@ -30,7 +30,7 @@ class AbonnementController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_abonnement_new", methods={"GET", "POST"})
+     * @Route("/new/{idAbonnement}", name="app_abonnement_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

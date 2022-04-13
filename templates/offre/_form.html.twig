@@ -1,4 +1,32 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="row align-items-center">
+    <div class="col-12">
+        {% if not form.vars.valid %}
+            {% for child in  form.children %}
+                {% for error in child.vars.errors %}
+                    <div class="alert alert-danger">{{ error.message }}</div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+{{ form_start(form , {'attr' : {'novalidate' : 'novalidate'}}) }}
+<div class="form-group">
+    <label for="exampleInputUsername1">Nom de l'offre</label>
+    {{ form_widget(form.nomOffre , {'attr' : {'class' : 'form-control' }})}}
+
+</div>
+<div class="form-group">
+    <label for="exampleInputUsername1">Prix de l'offre</label>
+    {{ form_widget(form.prixOffre , {'attr' : {'class' : 'form-control' }})}}
+</div>
+<div class="form-group">
+    <label for="exampleInputUsername1">Nombre de jeton de l'offre</label>
+    {{ form_widget(form.nbrJetonOffre , {'attr' : {'class' : 'form-control' }})}}
+</div>
+<div class="form-group">
+    <label for="exampleInputUsername1">Image de l'offre</label>
+    {{ form_widget(form.imgOffre , {'attr' : {'class' : 'form-control' }})}}
+</div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

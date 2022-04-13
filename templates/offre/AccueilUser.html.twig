@@ -13,15 +13,20 @@
         </div>
         <div class="row">
             {% for offre in offres  %}
-            <div class="col-md-4">
-                <div class="our_box">
 
-                    <figure><img src="{{ asset('Front/images/LOGO1.png') }}" alt="#" /></figure>
-                    <div class="col-md-12">  OFFRE  :{{ offre.nomOffre }}</div>
-                    <div class="col-md-12"> LE PRIX DE L'OFFRE  :{{ offre.prixOffre }}</div>
-                    <div class="col-md-12"> NOMBRE DE JETON  :{{ offre.nbrJetonOffre }}</div>
+
+
+
+    <div class="col-md-4">
+        <div class="our_box">
+                <div class="jonu">
+                    <img src="{{ asset('Front/images/LOGO1.png') }}" alt="#"/>
+                    <h3>{{ offre.nomOffre }}</h3>
+                    <strong>Prix: {{ offre.prixOffre }} , NOMBRE DE JETON:{{ offre.nbrJetonOffre }}</strong>
+                    <a class="read_more" href="{{ path('app_offre_show_User', {'idOffre': offre.idOffre}) }}">Voire Detail</a>
                 </div>
-            </div>
+        </div>
+    </div>
             {% else %}
                 colspan="6">no records found
             {% endfor %}

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Offre
  *
@@ -25,6 +25,11 @@ class Offre
      * @var string|null
      *
      * @ORM\Column(name="NOM_OFFRE", type="string", length=50, nullable=true, options={"comment"="NOM DE L'OFFRE"})
+     * @Assert\NotBlank(message="Veuillez Remplir ce champ")
+     *   @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "[a-zA-Z]+"
+     * )
      */
     private $nomOffre;
 
@@ -32,6 +37,9 @@ class Offre
      * @var int
      *
      * @ORM\Column(name="PRIX_OFFRE", type="integer", nullable=false, options={"comment"="PRIX DE L'OFFRE"})
+     * @Assert\NotBlank(message="Veuillez Remplir ce champ")
+     * @Assert\Positive(message="le prix de offre doit etre positive")
+     *
      */
     private $prixOffre;
 
@@ -39,6 +47,8 @@ class Offre
      * @var int
      *
      * @ORM\Column(name="NBR_JETON_OFFRE", type="integer", nullable=false, options={"comment"="NOMBRE DE JETON PAR OFFRE"})
+     * @Assert\NotBlank(message="Veuillez Remplir ce champ")
+     * @Assert\Positive(message="le Nombre de jeton doit etre positive")
      */
     private $nbrJetonOffre;
 
