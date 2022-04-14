@@ -19,12 +19,16 @@ class OffreController extends AbstractController
     /**
      * @Route("/", name="app_offre_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
-        $offres = $entityManager
+        $donnees = $entityManager
             ->getRepository(Offre::class)
             ->findAll();
-
+        $offres=$paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3// Nombre de résultats par page
+        );
         return $this->render('offre/index.html.twig', [
             'offres' => $offres,
         ]);
@@ -32,7 +36,7 @@ class OffreController extends AbstractController
     /**
      * @Route("/AccueilUser", name="app_offre_AccueilUser")
      */
-    public function index_client(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
+    public function index_User(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         $donnees = $entityManager
             ->getRepository(Offre::class)
@@ -48,7 +52,25 @@ class OffreController extends AbstractController
 
         );
     }
+    /**
+     * @Route("/AccueilClient", name="app_offre_AccueilClient")
+     */
+    public function index_client(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
+    {
+        $donnees = $entityManager
+            ->getRepository(Offre::class)
+            ->findAll();
+        $offres=$paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3// Nombre de résultats par page
+        );
+        return $this->render('offre/AccueilClient.html.twig',[
+                'offres' => $offres,
+            ]
 
+        );
+    }
     /**
      * @Route("/new", name="app_offre_new", methods={"GET", "POST"})
      */
@@ -72,7 +94,7 @@ class OffreController extends AbstractController
     }
 
     /**
-     * @Route("/{idOffre}", name="app_offre_show", methods={"GET"})
+     * @Route("/{idOffre}/admin", name="app_offre_show", methods={"GET"})
      */
     public function show(Offre $offre): Response
     {
@@ -80,7 +102,24 @@ class OffreController extends AbstractController
             'offre' => $offre,
         ]);
     }
-
+    /**
+     * @Route("/{idOffre}", name="app_offre_show_User", methods={"GET"})
+     */
+    public function showUser(Offre $offre): Response
+    {
+        return $this->render('offre/ShowUser.html.twig', [
+            'offre' => $offre,
+        ]);
+    }
+    /**
+     * @Route("/{idOffre}/client", name="app_offre_show_Client", methods={"GET"})
+     */
+    public function showClient(Offre $offre): Response
+    {
+        return $this->render('offre/ShowCLient.html.twig', [
+            'offre' => $offre,
+        ]);
+    }
     /**
      * @Route("/{idOffre}/edit", name="app_offre_edit", methods={"GET", "POST"})
      */
