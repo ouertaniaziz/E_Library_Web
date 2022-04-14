@@ -34,7 +34,7 @@ class OuverageController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-            1
+            5
         );
         return $this->render('ouverage/index.html.twig', [
             //'ouverages' => $ouverages,
