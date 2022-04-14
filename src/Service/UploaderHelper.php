@@ -11,16 +11,23 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploaderHelper
 {
-
+    const AUTEUR = 'auteurs_photo';
+    const OUVERAGE = 'ouverages_image';
     private string $uploadPath;
     public function __construct(string $uploadPath)
     {
         $this->uploadPath = $uploadPath;
     }
 
-    public function uploadFile(UploadedFile $uploadedFile, ): string
+    public function uploadFile(UploadedFile $uploadedFile, $entity): string
     {
-        $destination = $this->uploadPath.'/auteurs_photo';
+        if($entity == 'AUTEUR'){
+            $destination = $this->uploadPath.'/'.self::AUTEUR;
+        }
+        elseif ($entity == 'OUVERAGE'){
+            $destination = $this->uploadPath.'/'.self::OUVERAGE;
+        }
+
         $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
         $newFileName = $originalFileName . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
         $uploadedFile->move($destination, $newFileName);

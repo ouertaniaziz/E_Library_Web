@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class AuteurType extends AbstractType
 {
@@ -14,12 +15,21 @@ class AuteurType extends AbstractType
     {
         $builder
             ->add('nomAuteur')
-            ->add('prenomAuteur')
-            ->add('photoFile', FileType::class, [
-                'mapped' => false,
-                'required'=>false
+            ->add('prenomAuteur');
+
+        $imageConstraints = [
+            new Image([
+                'maxSize' => '500k',
+                'uploadNoFileErrorMessage' => 'image photo obligatoir'
             ])
-        ;
+        ];
+
+
+        $builder->add('photoFile', FileType::class, [
+            'mapped' => false,
+            'required' => false,
+            'constraints' => $imageConstraints
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
