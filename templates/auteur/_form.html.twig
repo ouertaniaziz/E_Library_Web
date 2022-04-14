@@ -1,7 +1,8 @@
 {{ form_start(form) }}
+{{ form_errors(form) }}
 {{ form_row(form.nomAuteur) }}
 {{ form_row(form.prenomAuteur) }}
 {{ form_row(form.photoFile) }}
 
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-primary" formnovalidate>{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
