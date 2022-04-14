@@ -132,6 +132,10 @@ class Auteur
 
     public function getPhotoPath(): string
     {
+        if ($this->getPhotoAuteur() === null)
+        {
+            return "/uploads/auteurs_photo/unknown_auteur.jpg";
+        }
         return "/uploads/auteurs_photo/".$this->photoAuteur;
     }
 
