@@ -58,6 +58,7 @@ class Ouverage
      * @var int
      *
      * @ORM\Column(name="prix_vente", type="integer", nullable=false)
+     * @Assert\NotBlank(message="prix de vente est obligatoir")
      * @Assert\GreaterThan(0, message="doit etre un montant positif")
      */
     private $prixVente;
@@ -66,6 +67,7 @@ class Ouverage
      * @var int
      *
      * @ORM\Column(name="prix_emprunt", type="integer", nullable=false)
+     * @Assert\NotBlank(message="prix d'emprunt est obligatoir")
      * @Assert\Positive(message="doit etre un montant positif")
      */
     private $prixEmprunt;
@@ -73,12 +75,13 @@ class Ouverage
     /**
      * @var string
      *
-     * @ORM\Column(name="img_livre", type="string", length=50, nullable=false)
+     * @ORM\Column(name="img_livre", type="string", length=50, nullable=true)
+     *
      */
-    private $imgLivre;
+    private ?string $imgLivre = null;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="Commande", mappedBy="idOuvrage")
      */
@@ -228,6 +231,10 @@ class Ouverage
 
     public function getImagePath(): string
     {
+        if ($this->getImgLivre() === null)
+        {
+            return "/uploads/ouverages_image/unknown_ouverage.jpg";
+        }
         return "/uploads/ouverages_image/".$this->imgLivre;
     }
 
