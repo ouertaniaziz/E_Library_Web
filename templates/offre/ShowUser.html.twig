@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offre{% endblock %}
+
+{% block body %}
+    <h1>Offre</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>IdOffre</th>
+            <td>{{ offre.idOffre }}</td>
+        </tr>
+        <tr>
+            <th>NomOffre</th>
+            <td>{{ offre.nomOffre }}</td>
+        </tr>
+        <tr>
+            <th>PrixOffre</th>
+            <td>{{ offre.prixOffre }}</td>
+        </tr>
+        <tr>
+            <th>NbrJetonOffre</th>
+            <td>{{ offre.nbrJetonOffre }}</td>
+        </tr>
+        <tr>
+            <th>ImgOffre</th>
+            <td>{{ offre.imgOffre }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_AccueilUser') }}">back to list</a>
+
+
+
+{% endblock %}
