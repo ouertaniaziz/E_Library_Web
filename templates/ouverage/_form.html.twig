@@ -1,4 +1,11 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn" formnovalidate>{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'method': 'POST'}) }}
+{{ form_errors(form) }}
+{{ form_row(form.nomLivre) }}
+{{ form_row(form.ouverageImage) }}
+{{ form_row(form.prixEmprunt) }}
+{{ form_row(form.prixVente) }}
+{{ form_row(form.genreLivre) }}
+{{ form_row(form.auteur) }}
+
+<button class="btn btn-primary" formnovalidate>{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -80,11 +80,12 @@ class AuteurController extends AbstractController
     }
 
     /**
-     * @Route("/{idAuteur}/edit", name="app_auteur_edit", methods={"GET", "POST"})
+     * @Route("/{idAuteur}/edit", name="app_auteur_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager,
                          UploaderHelper $uploaderHelper): Response
     {
+        //dd($request);
         $form = $this->createForm(AuteurType::class, $auteur);
         $form->handleRequest($request);
 

@@ -25,10 +25,9 @@ class Auteur
     private $idAuteur;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="Nom_auteur", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message="nom auteur est obligatoir")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private string $nomAuteur;
 
@@ -37,6 +36,7 @@ class Auteur
      *
      * @ORM\Column(name="Prenom_auteur", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="prenom auteur est obligatoir")
+     * @Assert\NotNull()
      */
     private string $prenomAuteur;
 
@@ -59,46 +59,70 @@ class Auteur
         $this->ouverages = new ArrayCollection();
     }
 
-    public function getIdAuteur(): ?int
+    /**
+     * @return int
+     */
+    public function getIdAuteur(): int
     {
         return $this->idAuteur;
     }
 
-    public function getNomAuteur(): ?string
+    /**
+     * @param int $idAuteur
+     */
+    public function setIdAuteur(int $idAuteur): void
+    {
+        $this->idAuteur = $idAuteur;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNomAuteur(): string
     {
         return $this->nomAuteur;
     }
 
-    public function setNomAuteur(?string $nomAuteur): self
+    /**
+     * @param ?string $nomAuteur
+     */
+    public function setNomAuteur(?string $nomAuteur): void
     {
         $this->nomAuteur = $nomAuteur;
-
-        return $this;
     }
 
+    /**
+     * @return ?string
+     */
     public function getPrenomAuteur(): ?string
     {
         return $this->prenomAuteur;
     }
 
-    public function setPrenomAuteur(?string $prenomAuteur): self
+    /**
+     * @param ?string $prenomAuteur
+     */
+    public function setPrenomAuteur(?string $prenomAuteur): void
     {
         $this->prenomAuteur = $prenomAuteur;
-
-        return $this;
     }
 
-    public function getPhotoAuteur(): ?string
+    /**
+     * @return string
+     */
+    public function getPhotoAuteur(): string
     {
         return $this->photoAuteur;
     }
 
-    public function setPhotoAuteur(string $photoAuteur): self
+    /**
+     * @param string $photoAuteur
+     */
+    public function setPhotoAuteur(string $photoAuteur): void
     {
         $this->photoAuteur = $photoAuteur;
-
-        return $this;
     }
+
 
     /**
      * @return Collection<int, Ouverage>
@@ -108,7 +132,7 @@ class Auteur
         return $this->ouverages;
     }
 
-    public function addOuverage(Ouverage $ouverage): self
+    public function addOuverage(?Ouverage $ouverage): self
     {
         if (!$this->ouverages->contains($ouverage)) {
             $this->ouverages[] = $ouverage;

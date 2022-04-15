@@ -8,13 +8,17 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class AuteurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomAuteur')
+            ->add('nomAuteur',  null,[
+                'required' => true,
+                'constraints' => [new Assert\NotBlank(), new Assert\NotNull()]
+            ])
             ->add('prenomAuteur');
 
         $imageConstraints = [
