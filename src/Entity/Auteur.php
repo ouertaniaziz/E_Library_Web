@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -51,7 +52,6 @@ class Auteur
      * @ORM\OneToMany(targetEntity=Ouverage::class, mappedBy="auteur")
      */
     private $ouverages;
-
 
 
     public function __construct()
@@ -108,9 +108,9 @@ class Auteur
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getPhotoAuteur(): string
+    public function getPhotoAuteur(): ?string
     {
         return $this->photoAuteur;
     }
@@ -156,12 +156,22 @@ class Auteur
 
     public function getPhotoPath(): string
     {
-        if ($this->getPhotoAuteur() === null)
-        {
+        if ($this->getPhotoAuteur() === null || $this->getPhotoAuteur() === "") {
             return "/uploads/auteurs_photo/unknown_auteur.jpg";
         }
-        return "/uploads/auteurs_photo/".$this->photoAuteur;
+        return "/uploads/auteurs_photo/" . $this->photoAuteur;
     }
+
+    public function getFullName(): ?string
+    {
+        return $this->getNomAuteur() . " " . $this->getPrenomAuteur();
+    }
+
+    public function __toString(): string
+    {
+        return $this->nomAuteur;
+    }
+
 
 
 }
