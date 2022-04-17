@@ -1,0 +1,43 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Auteur index{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h2>Liste des Auteurs</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Photo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for auteur in pagination %}
+            <tr>
+                <td>{{ auteur.idAuteur }}</td>
+                <td>{{ auteur.nomAuteur }}</td>
+                <td>{{ auteur.prenomAuteur }}</td>
+                {# <td>{{ auteur.photoAuteur }}</td>  #}
+                <td> <img width="100" height="100" src="{{ asset(auteur.photoPath) }}"></td>
+                <td>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_auteur_show', {'idAuteur': auteur.idAuteur}) }}"><span class="fa fa-search-plus"></span></a>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_auteur_edit', {'idAuteur': auteur.idAuteur}) }}"><span class="fa fa-pencil"></span></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">pas d'auteur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(pagination) }}
+    
+    <a href="{{ path('app_auteur_new') }}">Create new</a>
+    </div>
+{% endblock %}

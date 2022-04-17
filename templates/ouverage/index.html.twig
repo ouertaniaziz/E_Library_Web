@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ouverage index{% endblock %}
+
+{% block body %}
+    <h1>Nous Livres</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom Livre</th>
+                <th>Genre Livre</th>
+                <th>Auteur</th>
+                <th>Prix Vente</th>
+                <th>Prix Emprunt</th>
+                <th>Cover Livre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ouverage in pagination %}
+            <tr>
+                <td>{{ ouverage.nomLivre }}</td>
+                <td>{{ ouverage.genreLivre }}</td>
+                <td>{{ ouverage.auteur }}</td>
+                <td>{{ ouverage.nbrEmprunt }}</td>
+                <td>{{ ouverage.nbrVente }}</td>
+                <td>{{ ouverage.prixVente }}</td>
+                <td>{{ ouverage.prixEmprunt }}</td>
+                <td> <img width="200" height="200" src="{{ asset(ouverage.imagePath) }}"></td>
+                <td>
+                    <a class="btn btn-xs btn-secondary" href="{{ path('app_ouverage_show', {'id': ouverage.id}) }}"><span class="fa fa-search-plus"></span></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(pagination) }}
+{% endblock %}
