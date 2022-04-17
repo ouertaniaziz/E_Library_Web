@@ -18,10 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/ouverage")
  */
-class OuverageController extends AbstractController
+class OuverageAdminController extends AbstractController
 {
     /**
-     * @Route("/", name="app_ouverage_index", methods={"GET"})
+     * @Route("/", name="app_admin_ouverage_index", methods={"GET"})
      */
     public function index(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
