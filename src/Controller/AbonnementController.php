@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Abonnement;
+use App\Entity\Offre;
+use App\Entity\Users;
 use App\Form\AbonnementType;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,11 +22,18 @@ class AbonnementController extends AbstractController
     /**
      * @Route("/", name="app_abonnement_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
-        $abonnements = $entityManager
+
+        $donnees = $entityManager
             ->getRepository(Abonnement::class)
             ->findAll();
+        $abonnements=$paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3// Nombre de résultats par page
+        );
+
 
         return $this->render('abonnement/index.html.twig', [
             'abonnements' => $abonnements,
@@ -30,24 +41,32 @@ class AbonnementController extends AbstractController
     }
 
     /**
-     * @Route("/new/{idAbonnement}", name="app_abonnement_new", methods={"GET", "POST"})
+     * @Route("/new/{id_client}/{id_offre}", name="app_abonnement_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(Request $request, EntityManagerInterface $entityManager ,$id_client,$id_offre, ): Response
+    {    $offre = new offre();
+        $client = new Users();
         $abonnement = new Abonnement();
-        $form = $this->createForm(AbonnementType::class, $abonnement);
-        $form->handleRequest($request);
+        $client=$this->getDoctrine()->getRepository(Users::class)->find($id_client);
+        $offre = $this->getDoctrine()
+            ->getRepository(Offre::class)
+            ->find($id_offre);
+       $jeton=$offre->getNbrJetonOffre();
+     $abonnement->setIdUser($client);
+       $abonnement->setNbrJetonAbonnement($jeton);
+       $abonnement->setSolde($jeton);
+        $abonnement->setIdOffre($offre);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->persist($abonnement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_abonnement_index', [], Response::HTTP_SEE_OTHER);
-        }
+            return $this->redirectToRoute('app_offre_AccueilClient', [], Response::HTTP_SEE_OTHER);
 
-        return $this->render('abonnement/new.html.twig', [
+
+        return $this->render('offre/ShowClient.html.twig', [
             'abonnement' => $abonnement,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
