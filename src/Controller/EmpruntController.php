@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Emprunt;
 use App\Form\EmpruntType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,11 +19,16 @@ class EmpruntController extends AbstractController
     /**
      * @Route("/", name="app_emprunt_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
-        $emprunts = $entityManager
+        $donnees = $entityManager
             ->getRepository(Emprunt::class)
             ->findAll();
+        $emprunts=$paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3// Nombre de résultats par page
+        );
 
         return $this->render('emprunt/index.html.twig', [
             'emprunts' => $emprunts,
