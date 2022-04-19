@@ -77,7 +77,7 @@
                                                 <a class="nav-link" href="about.html"> About Us </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="show">Nos Livres</a>
+                                                <a class="nav-link" href="{{ path('app_ouverage_TestBook') }}">Nos Livres</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{{ path('app_evenement_AccueilUser') }}">Nos
@@ -88,7 +88,9 @@
                                                     offres</a>
                                             </li>
                                         </ul>
-                                        <div class="sign_btn"><a href="#">Login</a></div>
+                                        {% block login %}
+                                        {% endblock %}
+
                                     </div>
                                 </nav>
                             </div>

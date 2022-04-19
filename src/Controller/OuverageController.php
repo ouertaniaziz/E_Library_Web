@@ -41,7 +41,17 @@ class OuverageController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
+    /**
+ * @Route("/testBook", name="app_ouverage_TestBook")
+ */
+    #fonction pour tester l'affichage des ouvrage avec la bouton d'emprunt jusqu'a la phase d'integration
+    public function index_testaziz(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
+    {
 
+        return $this->render('emprunt/testaff_ouvrage.html.twig',
+
+        );
+    }
     /**
      * @Route("/new", name="app_ouverage_new", methods={"GET", "POST"})
      */
@@ -81,6 +91,7 @@ class OuverageController extends AbstractController
             'ouverage' => $ouverage,
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="app_ouverage_edit", methods={"GET", "POST"})

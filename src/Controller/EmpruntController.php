@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonnement;
 use App\Entity\Emprunt;
+use App\Entity\Ouverage;
+use App\Entity\Users;
 use App\Form\EmpruntType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -36,25 +39,27 @@ class EmpruntController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_emprunt_new", methods={"GET", "POST"})
+     * @Route("/new/{id_client}/{id_livre}/{nbr_semaine}", name="app_emprunt_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(Request $request, EntityManagerInterface $entityManager, $nbr_semaine,$id_client,$id_livre): Response
+    {    $abonnement=new Abonnement();
+        $ouverage=new Ouverage();
+        $ouverage=$this->getDoctrine()->getRepository(Ouverage::class)->find($id_livre);
+        $abonnement=$this->getDoctrine()->getRepository(Abonnement::class)->findOneBy(
+
+            ['idUser' => $id_client]);
         $emprunt = new Emprunt();
-        $form = $this->createForm(EmpruntType::class, $emprunt);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($emprunt);
-            $entityManager->flush();
-
+     $emprunt->setIdOuvrage($ouverage);
+     $emprunt->setDateEmprunt(new \DateTime('now'));
+    # $emprunt->setDateRetourOuvrage(strtotime("+1 week")); attentionn il faut terminer cette configuration de date
+        $emprunt->setDateRetourOuvrage(new \DateTime('now'));
+$emprunt->setIdAbonnement($abonnement);
+$abonnement-> setSolde($abonnement->getSolde()-($ouverage->getPrixEmprunt()*$nbr_semaine));
+        $entityManager->persist($emprunt);
+        $entityManager->flush();
             return $this->redirectToRoute('app_emprunt_index', [], Response::HTTP_SEE_OTHER);
-        }
 
-        return $this->render('emprunt/new.html.twig', [
-            'emprunt' => $emprunt,
-            'form' => $form->createView(),
-        ]);
+
     }
 
     /**
