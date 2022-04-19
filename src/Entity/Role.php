@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\RoleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Role
  *
  * @ORM\Table(name="role")
- * @ORM\Entity
+ * @ORM\Entity (repositoryClass=RoleRepository::class)
  */
+
 class Role
 {
     /**
@@ -24,7 +25,7 @@ class Role
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", length=20, nullable=false)
+     * @ORM\Column(name="role", type="string", length=20, nullable=true)
      */
     private $role;
 
@@ -40,7 +41,7 @@ class Role
 
     public function setRole(string $role): self
     {
-        $this->role = $role;
+        $this->role = "$role";
 
         return $this;
     }

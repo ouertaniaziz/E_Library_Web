@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <h1>Inscription</h1>
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    {{ form_widget(form.emailUser,{"attr":{"placeholder":"Email"}})}}
+    <font color="red">
+        {{ form_errors(form.emailUser)}}
+    </font >
+    <br>
+    <br>
+    {{ form_widget(form.mdpUser,{"attr":{"placeholder":"Mot de passe"}})}}
+    <font color="red">
+        {{ form_errors(form.mdpUser)}}
+    </font >
+    <button style="width: 180px"  class="btn btn-primary">{{ button_label|default('Se connecter') }}</button>
+    <br>
+    <br>
+
+
+    {{ form_end(form) }}
+    <br>
+    <p class="sign-up text-center"><a href="{{ path('app_login_newMdp') }}"> Mot de passe oublié</a></p>
+    <p class="sign-up text-center">Vous n'avez pas de compte ?<a href="{{ path('app_login_newClient') }}"> S'inscrire</a></p>
+    <p class="terms">En créant un compte, vous acceptez notre<a href="#"> Termes et conditions</a></p>
+
+{%endblock%}

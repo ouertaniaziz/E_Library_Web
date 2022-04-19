@@ -1,26 +1,52 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
-{% block title %}Role{% endblock %}
+{% block title %}E-library{% endblock %}
 
 {% block body %}
-    <h1>Role</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ role.id }}</td>
-            </tr>
-            <tr>
-                <th>Role</th>
-                <td>{{ role.role }}</td>
-            </tr>
-        </tbody>
+    <div  class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header" style="margin: 0 0 4.5rem 0;">
+                <h3 class="page-title"> E-library </h3>
+
+            </div>
+            <div class="row" style="margin: auto;">
+                <div class="col-md-6 grid-margin stretch-card" style="margin:auto;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-right">
+                                <div class="col-7">
+                                    <h4 class="card-title" style="color: #ff6600;">Role</h4>
+                                </div>
+                                <div class="col-4 text-right" style="display: -webkit-box;">
+                                    <a  style="margin-left: -110px;" class="btn btn-outline-primary btn-fw" href="{{ path('app_role_index') }}">Retour</a>
+                                    <form style=" margin-left: 5px;" method="post" action="{{ path('app_role_delete', {'id': role.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ role.role) }}">
+                                        <button class="btn btn-outline-danger btn-fw">Supprimer</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <form class="forms-sample" readonly="true">
+                                <div class="form-group">
+                                    <label for="exampleInputUsername1">Id</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" value="{{  role.id }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputUsername1">Role </label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" value="{{role.role }}">
+                                </div>
+
+                                <a class="btn btn-outline-primary btn-fw" href="{{path('app_role_edit', {'id': role.id}) }}">Modifier</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </tbody>
     </table>
 
-    <a href="{{ path('app_role_index') }}">back to list</a>
-
-    <a href="{{ path('app_role_edit', {'id': role.id}) }}">edit</a>
-
-    {{ include('role/_delete_form.html.twig') }}
 {% endblock %}
+
+

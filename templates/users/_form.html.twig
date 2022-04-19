@@ -1,4 +1,42 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+<center>
+{{ form_widget(form.nomUser,{"attr":{"placeholder":"Nom"}})}}
+    <font color="red">
+{{ form_errors(form.nomUser)}}
+    </font >
+<br>
+<br>
+{{ form_widget(form.prenomUser,{"attr":{"placeholder":"Prenom"}})}}
+    <font color="red">
+    {{ form_errors(form.prenomUser)}}
+    </font >
+    <br>
+    <br>
+{{ form_widget(form.emailUser,{"attr":{"placeholder":"Email"}})}}
+        <font color="red">
+    {{ form_errors(form.emailUser)}}
+        </font >
+    <br>
+    <br>
+
+{{ form_widget(form.telUser,{"attr":{"placeholder":"Téléphone"}})}}
+                <font color="red">
+    {{ form_errors(form.telUser)}}
+                </font >
+    <br>
+    <br>
+{{ form_widget(form.adresse,{"attr":{"placeholder":"Adresse"}})}}
+                    <font color="red">
+    {{ form_errors(form.adresse)}}
+                    </font >
+    <br>
+    <br>
+{{ form_widget(form.role)}}
+
+<br>
+<br>
+<button style="background: darkgoldenrod" class="btn">{{ button_label|default('Save') }}</button>
+</center>
 {{ form_end(form) }}
+
+

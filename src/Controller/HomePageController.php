@@ -17,4 +17,13 @@ class HomePageController extends AbstractController
             'controller_name' => 'HomePageController',
         ]);
     }
+    /**
+     * @Route("/LoginClient", name="app_home_page_client")
+     */
+    public function indexclient(): Response
+    {
+        return $this->render('home_page/HomePageClient.html.twig', [
+            'controller_name' => 'HomePageController',
+        ]);
+    }
 }

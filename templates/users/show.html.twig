@@ -1,61 +1,53 @@
 {% extends 'baseBack.html.twig' %}
-{% block title %}Users{% endblock %}
+
+{% block title %}E-library{% endblock %}
 
 {% block body %}
-    <h1>Users</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdUser</th>
-                <td>{{ user.idUser }}</td>
-            </tr>
-            <tr>
-                <th>NomUser</th>
-                <td>{{ user.nomUser }}</td>
-            </tr>
-            <tr>
-                <th>PrenomUser</th>
-                <td>{{ user.prenomUser }}</td>
-            </tr>
-            <tr>
-                <th>EmailUser</th>
-                <td>{{ user.emailUser }}</td>
-            </tr>
-            <tr>
-                <th>MdpUser</th>
-                <td>{{ user.mdpUser }}</td>
-            </tr>
-            <tr>
-                <th>TelUser</th>
-                <td>{{ user.telUser }}</td>
-            </tr>
-            <tr>
-                <th>Abonnement</th>
-                <td>{{ user.abonnement }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ user.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>{{ user.code }}</td>
-            </tr>
-            <tr>
-                <th>Bloquer</th>
-                <td>{{ user.bloquer }}</td>
-            </tr>
-            <tr>
-                <th>Remember</th>
-                <td>{{ user.remember }}</td>
-            </tr>
-        </tbody>
+    <div  class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header" style="margin: 0 0 4.5rem 0;">
+                <h3 class="page-title"> E-library </h3>
+
+            </div>
+            <div class="row" style="margin: auto;">
+                <div class="col-md-6 grid-margin stretch-card" style="margin:auto;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-right">
+                                <div class="col-7">
+                                    <h4 class="card-title" style="color: #ff6600;">Profil</h4>
+                                </div>
+                                <div class="col-4 text-right" style="display: -webkit-box;">
+                                    <a  style="margin-left: -110px;" class="btn btn-outline-primary btn-fw" href="{{ path('app_users_index') }}">Retour</a>
+                                    <form style=" margin-left: 5px;" method="post" action="{{ path('app_users_delete', {'idUser': user.idUser}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.idUser) }}">
+                                        <button class="btn btn-outline-danger btn-fw">Supprimer</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <form class="forms-sample" readonly="true">
+                                <div class="form-group">
+                                    <label for="exampleInputUsername1">Nom</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" value="{{  user.nomUser }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputUsername1">Prénom </label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" value="{{user.prenomUser }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" value="{{ user.emailUser }}" >
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </tbody>
     </table>
 
-    <a href="{{ path('app_users_index') }}">back to list</a>
-
-    <a href="{{ path('app_users_edit', {'idUser': user.idUser}) }}">edit</a>
-
-    {{ include('users/_delete_form.html.twig') }}
 {% endblock %}
