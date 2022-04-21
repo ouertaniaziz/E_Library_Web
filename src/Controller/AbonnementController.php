@@ -70,7 +70,7 @@ class AbonnementController extends AbstractController
         $result = Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
-            ->data('contenu de Qr code  ')
+            ->data("Hello " )
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(300)
@@ -82,15 +82,11 @@ class AbonnementController extends AbstractController
             ->labelAlignment(new LabelAlignmentCenter())
             ->build();
 
-// Directly output the QR code
-      //  header('Content-Type: '.$result->getMimeType());
-      //  echo $result->getString();
+
 
 // Save it to a file
         $result->saveToFile(__DIR__.'/qrcode1.png');
 
-// Generate a data URI to include image data inline (i.e. inside an <img> tag)
-      //  $dataUri = $result->getDataUri();
 ####################### Fin test #################################
 
 

@@ -1,9 +1,24 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Role{% endblock %}
+{% extends 'baseBack.html.twig' %}
 
 {% block body %}
-    <h1>Create new Role</h1>
+<div  class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header" style="margin: 0 0 4.5rem 0;">
+            <h3 class="page-title">  </h3>
+
+        </div>
+        <div class="row" style="margin: auto;">
+            <div class="col-md-6 grid-margin stretch-card" style="margin:auto;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-right">
+                            <div class="col-9">
+                                <h4 class="card-title">Nouveau Role</h4>
+                            </div>
+                            <div class="col-2 text-right" style="display: -webkit-box;">
+                            </div>
+                        </div>
+
 
     {{ include('role/_form.html.twig') }}
 
