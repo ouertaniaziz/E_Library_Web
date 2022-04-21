@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'home_page/HomePageClient.html.twig' %}
 
 {% block title %}Commentaire{% endblock %}
 
@@ -7,20 +7,18 @@
 
     <table class="table">
         <tbody>
+        {% for commentaire in commentaire %}
             <tr>
-                <th>IdCommentaire</th>
-                <td>{{ commentaire.idCommentaire }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
+
                 <td>{{ commentaire.commentaire }}</td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_commentaire_index') }}">back to list</a>
 
-    <a href="{{ path('app_commentaire_edit', {'idCommentaire': commentaire.idCommentaire}) }}">edit</a>
 
-    {{ include('commentaire/_delete_form.html.twig') }}
+
+
+
 {% endblock %}

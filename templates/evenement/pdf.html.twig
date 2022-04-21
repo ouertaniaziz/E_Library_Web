@@ -3,14 +3,9 @@
 {% block title %}Evenement{% endblock %}
 
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
     <h1>Evenement</h1>
-    <img src="{{ asset('/uploads/' ~ evenement.image ) }}" alt="img" class="image"  style="max-height: 300px; width: 300px;" >
-    <table class="table">
+
+    <table class="table" border="1px">
         <tbody>
 
         <tr>
@@ -38,9 +33,5 @@
 
         </tbody>
     </table>
-    <div class="read_more"> <a href="{{ path('app_commentaire_new',{'id':evenement.id}) }}">creer votre commentaire  </a> </div>
-    <div class="read_more"> <a href="{{ path('app_commentaire_show',{'id':evenement.id})}}">afficher les  commentaires </a> </div>
-    <div class="read_more"> <a href="{{ path('app_evenement_PDF',{'id':evenement.id}) }}">PDF  </a> </div>
-
 
 {% endblock %}

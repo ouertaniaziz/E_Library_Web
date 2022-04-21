@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Evenement;
 use App\Entity\Participant;
+use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +16,9 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('userid')
-            ->add('eventid')
+            /*     ->add('eventid',EntityType::class,[
+                     'class'=>Evenement::class,
+                     'choice_label'=>'nom'])*/
         ;
     }
 

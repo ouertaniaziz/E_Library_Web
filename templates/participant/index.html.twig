@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Participant index{% endblock %}
 
@@ -7,21 +7,19 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Userid</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>nom de event</th>
+            <th>id de User </th>
+
+        </tr>
         </thead>
         <tbody>
         {% for participant in participants %}
             <tr>
-                <td>{{ participant.id }}</td>
-                <td>{{ participant.userid }}</td>
-                <td>
-                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">show</a>
-                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
-                </td>
+                <td>{{ participant.eventid.nom }}</td>
+                <td>{{ participant.userid}}</td>
+
+
             </tr>
         {% else %}
             <tr>
@@ -31,5 +29,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_new') }}">Create new</a>
+
 {% endblock %}

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Evenement
  *
@@ -24,7 +24,12 @@ class Evenement
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false )
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "[a-zA-Z]+"
+     * )
+
      */
     private $nom;
 
@@ -32,6 +37,10 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="lieux", type="string", length=255, nullable=false)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "[a-zA-Z]+"
+     * )
      */
     private $lieux;
 
@@ -39,6 +48,7 @@ class Evenement
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\GreaterThan("today")
      */
     private $date;
 
@@ -46,6 +56,10 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=500, nullable=false)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "[a-zA-Z]+"
+     * )
      */
     private $description;
 
@@ -53,13 +67,35 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="nbrplace", type="integer", nullable=false)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @Assert\Positive
+     *
      */
     private $nbrplace;
-
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(name="image", type="string",  length=255)
+     *
+     * @var string
+
+     * )
      */
     private $image;
+
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -125,18 +161,16 @@ class Evenement
 
         return $this;
     }
+    protected $captchaCode;
 
-    public function getImage(): ?string
+    public function getCaptchaCode()
     {
-        return $this->image;
+        return $this->captchaCode;
     }
 
-    public function setImage(string $image): self
+    public function setCaptchaCode($captchaCode)
     {
-        $this->image = $image;
-
-        return $this;
+        $this->captchaCode = $captchaCode;
     }
-
 
 }

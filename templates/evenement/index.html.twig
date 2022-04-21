@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Evenement index{% endblock %}
 
@@ -7,15 +7,18 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Lieux</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Nbrplace</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Lieux</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Nbrplace</th>
+            <th>images</th>
+            <th>show</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
         </thead>
         <tbody>
         {% for evenement in evenements %}
@@ -26,10 +29,18 @@
                 <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.description }}</td>
                 <td>{{ evenement.nbrplace }}</td>
+                <td class="table-light"><img src="{{ asset('/uploads/' ~ evenement.image )|imagine_filter('carre') }}" alt="img" class="image"  ></td>
                 <td>
-                    <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}">show</a>
+                    <a href="{{ path('app_evenement_show_back', {'id': evenement.id}) }}">show</a>
+
+                </td><td>
+
                     <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
+                </td><td>
+                    {{ include('evenement/_delete_form.html.twig') }}
                 </td>
+
+
             </tr>
         {% else %}
             <tr>

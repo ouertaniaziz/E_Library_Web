@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Evenement;
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,38 +26,46 @@ class CommentaireController extends AbstractController
 
         return $this->render('commentaire/index.html.twig', [
             'commentaires' => $commentaires,
+
         ]);
     }
 
     /**
-     * @Route("/new", name="app_commentaire_new", methods={"GET", "POST"})
+     * @Route("{id}", name="app_commentaire_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new($id, Request $request): Response
     {
-        $commentaire = new Commentaire();
+        $commentaire = new commentaire();
+        $event=$this->getDoctrine()->getRepository(Evenement::class)->find($id);
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($commentaire);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('commentaire/new.html.twig', [
-            'commentaire' => $commentaire,
-            'form' => $form->createView(),
-        ]);
-    }
+        $commentaire->addIdEvent($event);
+        if ($form->isSubmitted() && $form->isValid() ) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire);
+            $em->flush();
+            return $this->redirectToRoute('app_commentaire_show', ['id' => $event->getId()]);
+        }return $this->render('participant/new.html.twig', [
+        'commentaire' => $commentaire,
+        'form' => $form->createView(),
+    ]);}
 
     /**
-     * @Route("/{idCommentaire}", name="app_commentaire_show", methods={"GET"})
+     * @Route("/{id}", name="app_commentaire_show")
      */
-    public function show(Commentaire $commentaire): Response
+    public function show( $id, EntityManagerInterface $manager ): Response
     {
+
+        $commantaire= $manager->createQuery('select c.commentaire from 
+  App\Entity\Commentaire c 
+  where c.event=:param
+')
+            ->setParameter('param',$id)
+            ->getResult();
+
         return $this->render('commentaire/show.html.twig', [
-            'commentaire' => $commentaire,
+            'commentaire' => $commantaire,
+
         ]);
     }
 
@@ -91,6 +99,6 @@ class CommentaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
 }

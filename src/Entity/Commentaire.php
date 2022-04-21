@@ -69,6 +69,15 @@ class Commentaire
     {
         return $this->event;
     }
+    public function addIdEvent(Evenement  $evenement): self
+    {
+
+        $this->event = $evenement;
+
+
+        return $this;
+    }
+
 
     public function setEvent(?Evenement $event): self
     {

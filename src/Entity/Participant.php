@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Evenement;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,7 +43,14 @@ class Participant
     {
         return $this->id;
     }
+    public function addIdEvent(Evenement  $evenement): self
+    {
 
+        $this->eventid = $evenement;
+
+
+        return $this;
+    }
     public function getUserid(): ?int
     {
         return $this->userid;

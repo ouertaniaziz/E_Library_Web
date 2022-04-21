@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\Evenement;
+use App\Entity\Users;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client\Curl\User;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,19 +34,22 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_participant_new", methods={"GET", "POST"})
+     * @Route("/{id}", name="app_participant_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new($id, Request $request ): Response
     {
         $participant = new Participant();
+        $event=$this->getDoctrine()->getRepository(Evenement::class)->find($id);
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($participant);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+        $participant->addIdEvent($event);
+        if ($form->isSubmitted() && $form->isValid() && ($event->getNbrplace()>=0)  ) {
+            $em = $this->getDoctrine()->getManager();
+            $nombre_place=$event->getNbrplace();
+            $event->setNbrplace($nombre_place-1);
+            $em->persist($participant);
+            $em->flush();
+            return $this->redirectToRoute('app_evenement_AccueilUser', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('participant/new.html.twig', [

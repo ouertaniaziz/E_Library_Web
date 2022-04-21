@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Commentaire index{% endblock %}
 
@@ -7,20 +7,25 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>IdCommentaire</th>
-                <th>Commentaire</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+
+            <th>Commentaire</th>
+
+            <th>nom event</th>
+
+
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for commentaire in commentaires %}
             <tr>
-                <td>{{ commentaire.idCommentaire }}</td>
+
                 <td>{{ commentaire.commentaire }}</td>
+                <td>{{ commentaire.event.nom  }}</td>
                 <td>
-                    <a href="{{ path('app_commentaire_show', {'idCommentaire': commentaire.idCommentaire}) }}">show</a>
-                    <a href="{{ path('app_commentaire_edit', {'idCommentaire': commentaire.idCommentaire}) }}">edit</a>
+                    {{ include('commentaire/_delete_form.html.twig') }}
+                </td>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_commentaire_new') }}">Create new</a>
+
 {% endblock %}
