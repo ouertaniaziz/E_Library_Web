@@ -111,10 +111,9 @@ class Ouverage
         return $this->nomLivre;
     }
 
-    public function setNomLivre(string $nomLivre): self
+    public function setNomLivre(?string $nomLivre): self
     {
         $this->nomLivre = $nomLivre;
-
         return $this;
     }
 
@@ -123,7 +122,7 @@ class Ouverage
         return $this->genreLivre;
     }
 
-    public function setGenreLivre(string $genreLivre): self
+    public function setGenreLivre(?string $genreLivre): self
     {
         $this->genreLivre = $genreLivre;
 
@@ -159,7 +158,7 @@ class Ouverage
         return $this->prixVente;
     }
 
-    public function setPrixVente(int $prixVente): self
+    public function setPrixVente(?int $prixVente): self
     {
         $this->prixVente = $prixVente;
 
@@ -171,7 +170,7 @@ class Ouverage
         return $this->prixEmprunt;
     }
 
-    public function setPrixEmprunt(int $prixEmprunt): self
+    public function setPrixEmprunt(?int $prixEmprunt): self
     {
         $this->prixEmprunt = $prixEmprunt;
 
@@ -231,7 +230,7 @@ class Ouverage
 
     public function getImagePath(): string
     {
-        if ($this->getImgLivre() === null)
+        if ($this->getImgLivre() === null || $this->getImgLivre() === "")
         {
             return "/uploads/ouverages_image/unknown_ouverage.jpg";
         }

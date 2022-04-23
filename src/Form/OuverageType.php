@@ -34,12 +34,14 @@ class OuverageType extends AbstractType
             'constraints' => $imageConstraints
         ])
 
-            ->add('auteur', EntityType::class, [
+            ->add('auteur', AuteurSelectTextType::class
+                /*, [
                 'class' => Auteur::class,
                 'choice_label' => function (Auteur $auteur) {
                     return sprintf($auteur->getNomAuteur() . " " . $auteur->getPrenomAuteur());
                 }
-            ]);
+            ]*/
+                );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
