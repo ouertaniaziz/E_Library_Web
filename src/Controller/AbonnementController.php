@@ -64,13 +64,14 @@ class AbonnementController extends AbstractController
         $abonnement->setIdOffre($offre);
 
 
+
             $entityManager->persist($abonnement);
             $entityManager->flush();
         #########################  Test QrCode ##################################
         $result = Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
-            ->data("Hello " )
+            ->data("votre abonnement est créer".$abonnement->getIdAbonnement()."ghhhhh")
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(300)
