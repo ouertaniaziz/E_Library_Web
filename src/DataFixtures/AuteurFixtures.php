@@ -3,20 +3,19 @@
 namespace App\DataFixtures;
 
 use App\Entity\Auteur;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AuteurFixtures extends Fixture
+class AuteurFixtures extends BaseFixtures
 {
-    public function load(ObjectManager $manager): void
+    protected function loadData(ObjectManager $manager): void
     {
-        for($i = 0; $i < 10; $i++) {
-            $auteur = new Auteur();
+        $this->createMany(Auteur::class, 10, function(Auteur $auteur, $count){
             $auteur->setNomAuteur('Shakespeare');
             $auteur->setPrenomAuteur('William');
             $auteur->setPhotoAuteur("");
-            $manager->persist($auteur);
-        }
+        });
+
+
         $manager->flush();
 
     }

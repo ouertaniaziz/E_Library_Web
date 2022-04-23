@@ -230,7 +230,7 @@ class Ouverage
 
     public function getImagePath(): string
     {
-        if ($this->getImgLivre() === null)
+        if ($this->getImgLivre() === null || $this->getImgLivre() === "")
         {
             return "/uploads/ouverages_image/unknown_ouverage.jpg";
         }

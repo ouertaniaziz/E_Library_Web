@@ -2,19 +2,27 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Auteur;
 use App\Entity\Ouverage;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class OuverageFixtures extends Fixture
+class OuverageFixtures extends BaseFixtures
 {
-    public function load(ObjectManager $manager): void
+    protected function loadData(ObjectManager $manager): void
     {
         for($i = 0; $i < 10; $i++) {
             $ouverage = new Ouverage();
+            $auteur = new Auteur();
+            $auteur->setNomAuteur('Shakespeare');
+            $auteur->setPrenomAuteur('William');
+            $auteur->setPhotoAuteur("");
+            $manager->persist($auteur);
             $ouverage->setNomLivre('Exemple Titre');
             $ouverage->setImgLivre('');
-            $ouverage->setAuteur();
+            $ouverage->setAuteur($auteur);
+            $ouverage->setGenreLivre('SciFi');
+            $ouverage->setPrixEmprunt(10);
+            $ouverage->setPrixVente(100);
             $manager->persist($ouverage);
         }
         $manager->flush();
