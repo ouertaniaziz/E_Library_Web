@@ -50,3 +50,11 @@ et pour naviguer ajouter au fichier baseBack.html.twig
                         </ul>
                     </div>
                 </li>
+
+
+
+
+##Ajouter bundle Qr code 
+ composer require endroid/qr-code   
+ ## Ajouter bundle pagination
+ composer require knplabs/knp-paginator-bundle 

@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Users;
+use App\Entity\Role;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,14 +17,14 @@ class UsersType extends AbstractType
             ->add('nomUser')
             ->add('prenomUser')
             ->add('emailUser')
-            ->add('mdpUser')
             ->add('telUser')
-            ->add('abonnement')
             ->add('adresse')
-            ->add('code')
-            ->add('bloquer')
-            ->add('remember')
-            ->add('role')
+            ->add('role',EntityType::class,[
+                'class'=>Role::class,
+                'choice_label'=>'role'])
+
+
+
         ;
     }
 

@@ -1,0 +1,38 @@
+{% extends 'home_page/HomePageClient.html.twig' %}
+{% block title %}bookTest{% endblock %}
+{% block body %}
+    <body class="main-layout">
+    <div class="ourwork">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>nos livre</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+
+                    <div class="col-md-4">
+                        <div class="our_box">
+                            <div class="jonu">
+                                <img src="{{ asset('Front/images/LOGO1.png') }}" alt="#"/>
+                                <h3>tesst</h3>
+                                <strong>50, 30</strong>
+                                <a class="read_more" href="{{ path('app_emprunt_new', { 'id_client' : 252 ,'id_livre' :2 , 'nbr_semaine':5}) }}">acheter</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    </body>
+
+{% endblock %}
