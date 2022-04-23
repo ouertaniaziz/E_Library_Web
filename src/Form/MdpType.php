@@ -8,22 +8,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UsersType extends AbstractType
+
+class MdpType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomUser')
-            ->add('prenomUser')
+
             ->add('emailUser')
-            ->add('telUser')
-            ->add('adresse')
-            ->add('role',EntityType::class,[
-                'class'=>Role::class,
-                'choice_label'=>'role'])
-
-
 
         ;
     }
@@ -32,6 +27,13 @@ class UsersType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
+        ]);
+
+
+        $resolver->setDefaults([
+            'attr' => [
+                'novalidate' => 'novalidate', // comment me to reactivate the html5 validation!  🚥
+            ]
         ]);
     }
 }

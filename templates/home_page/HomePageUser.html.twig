@@ -1,4 +1,21 @@
 {% extends 'base.html.twig' %}
+{% block navigation %} <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="about.html"> About Us </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_ouverage_TestBook') }}">Nos Livres</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_evenement_AccueilUser') }}">Nos
+            événements</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_offre_AccueilUser') }}">Nos
+            offres</a>
+    </li>
+    </ul>{% endblock %}
+{% block login %}<div class="sign_btn"><a href="{{ path('app_login_login') }}">Login</a></div> {% endblock %}
 {% block body %}
     <body class="main-layout">
     <!-- loader  -->

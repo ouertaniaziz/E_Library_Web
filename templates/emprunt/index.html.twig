@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Emprunt index{% endblock %}
 
@@ -34,6 +34,6 @@
         {% endfor %}
         </tbody>
     </table>
+    {{ knp_pagination_render(emprunts) }}
 
-    <a href="{{ path('app_emprunt_new') }}">Create new</a>
 {% endblock %}

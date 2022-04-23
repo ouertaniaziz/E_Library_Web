@@ -36,7 +36,7 @@ class Abonnement
     private $solde;
 
     /**
-     * @var \Users
+     * @var int
      *
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
@@ -46,7 +46,7 @@ class Abonnement
     private $idUser;
 
     /**
-     * @var \Offre
+     * @var int
      *
      * @ORM\ManyToOne(targetEntity="Offre")
      * @ORM\JoinColumns({
@@ -95,6 +95,12 @@ class Abonnement
 
         return $this;
     }
+    public function setIddUser(int $idUser)
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
 
     public function getIdOffre(): ?Offre
     {
@@ -102,6 +108,12 @@ class Abonnement
     }
 
     public function setIdOffre(?Offre $idOffre): self
+    {
+        $this->idOffre = $idOffre;
+
+        return $this;
+    }
+    public function setIddOffre(int $idOffre)
     {
         $this->idOffre = $idOffre;
 

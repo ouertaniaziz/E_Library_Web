@@ -1,0 +1,6 @@
+
+{{ form_start(form) }}
+{{ form_widget(form.emailUser,{"attr":{"placeholder":"Email"}})}}
+{{ form_errors(form.emailUser)}}
+<button style="width: 180px"  class="btn btn-primary">{{ button_label|default('Se connecter') }}</button>
+{{ form_end(form,{'attr': {'novalidate': 'novalidate'}} ) }}
