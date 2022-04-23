@@ -3,20 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\Ouverage;
+use App\Form\OuverageType;
+use App\Repository\OuverageRepository;
+use App\Service\UploaderHelper;
+use App\Service\UploadType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/ouverage")
+ * @Route("/admin/ouverage")
  */
-class OuverageController extends AbstractController
+class OuverageAdminController extends AbstractController
 {
     /**
-     * @Route("/", name="app_ouverage_index", methods={"GET"})
+     * @Route("/", name="app_admin_ouverage_index", methods={"GET"})
      */
     public function index(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
@@ -37,17 +42,6 @@ class OuverageController extends AbstractController
         ]);
     }
 
-    /**
-    * @Route("/testBook", name="app_ouverage_TestBook")
-    */
-    #fonction pour tester l'affichage des ouvrage avec la bouton d'emprunt jusqu'a la phase d'integration
-    public function index_testaziz(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
-    {
-
-        return $this->render('emprunt/testaff_ouvrage.html.twig',
-
-        );
-    }
     /**
      * @Route("/new", name="app_ouverage_new", methods={"GET", "POST"})
      */
@@ -87,7 +81,6 @@ class OuverageController extends AbstractController
             'ouverage' => $ouverage,
         ]);
     }
-
 
     /**
      * @Route("/{id}/edit", name="app_ouverage_edit", methods={"GET", "POST"})
