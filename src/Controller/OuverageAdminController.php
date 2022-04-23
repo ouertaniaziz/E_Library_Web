@@ -36,14 +36,14 @@ class OuverageAdminController extends AbstractController
             $request->query->getInt('page', 1),
             5
         );
-        return $this->render('ouverage/index.html.twig', [
+        return $this->render('ouverage/admin/index.html.twig', [
             //'ouverages' => $ouverages,
             'pagination' => $pagination,
         ]);
     }
 
     /**
-     * @Route("/new", name="app_ouverage_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_admin_ouverage_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager,
                         UploaderHelper $uploaderHelper): Response
@@ -66,7 +66,7 @@ class OuverageAdminController extends AbstractController
             return $this->redirectToRoute('app_ouverage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('ouverage/new.html.twig', [
+        return $this->render('ouverage/admin/new.html.twig', [
             'ouverage' => $ouverage,
             'form' => $form->createView(),
         ]);

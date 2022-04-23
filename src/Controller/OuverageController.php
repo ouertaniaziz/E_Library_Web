@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ouverage;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
