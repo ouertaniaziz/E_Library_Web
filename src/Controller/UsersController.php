@@ -70,16 +70,19 @@ class UsersController extends AbstractController
     {
         $user = new Users();
         $form = $this->createForm(UsersType::class, $user);
-        $Random_str = uniqid();
-        $user->setMdpUser($Random_str);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted()) {
+            $Random_str = uniqid();
+            $user->setMdpUser($Random_str);
+            $entityManager->persist($user);
+            $entityManager->flush();
             $user->sendPassword($mailer);
             $user->setMdpUser(md5($Random_str));
             $entityManager->persist($user);
             $entityManager->flush();
+
+
 
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -154,7 +157,7 @@ class UsersController extends AbstractController
 
         if ($form->isSubmitted()) {
             $code=$form->get('code')->getData();
-           // $mdp = $form->get('mdpUser')->getData();
+            // $mdp = $form->get('mdpUser')->getData();
             $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['code' => $code]);
             $user->setMdpUser(md5($form->get('mdpUser')->getData()));
             $manager = $this->getDoctrine()->getManager();
@@ -168,36 +171,6 @@ class UsersController extends AbstractController
     }
 
 
-    /*
-        /**
-         * @Route("/export", name="app_users_export",methods={"GET","POST"})
-         */
-    /*  public function export($type) {
-          $offer_customer_data = UsersController::all();
-          $spreadsheet = new Spreadsheet();
-          $sheet = $spreadsheet->getActiveSheet();
-          $sheet->setCellValue('A1', 'nomUser');
-          $sheet->setCellValue('B1', 'prenomUser');
-          $sheet->setCellValue('C1', 'emailUser');
-          $rows = 2;
-
-          foreach($offer_customer_data as $empDetails){
-              $sheet->setCellValue('A' . $rows, $empDetails['nomUser']);
-              $sheet->setCellValue('B' . $rows, $empDetails['prenomUser']);
-              $sheet->setCellValue('C' . $rows, $empDetails['emailUser']);
-              $rows++;
-          }
-
-          $fileName = "emp.".$type;
-          if($type == 'xlsx') {
-              $writer = new Xlsx($spreadsheet);
-          } else if($type == 'xls') {
-              $writer = new Xls($spreadsheet);
-          }
-          $writer->save("export/".$fileName);
-          header("Content-Type: application/vnd.ms-excel");
-          return redirect(url('/')."/export/".$fileName);
-      }*/
 
     /**
      * @Route("/{idUser}", name="app_users_show", methods={"GET"})

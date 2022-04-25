@@ -33,7 +33,9 @@ class LoginController extends AbstractController
             // $bdd = $manager->getRepository(Users::class);
             if ( $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['emailUser' => $email,'mdpUser' => md5($mdp)])) {
                 if($user->getBloquer()==1)
-                { echo "<div class='p-3 mb-2 bg-danger'>ce compte est bloquer</div>";}
+               // { echo "<div class='p-3 mb-2 bg-danger'>ce compte est bloquer</div>";}
+                    $this->addFlash('error', "ce compte est bloquer");
+
                 else {
                     if($user->getRole()->getRole()=='client'){
                         $ok=$rep->findByEmail($user->getEmailUser(),$user->getMdpUser());
@@ -68,7 +70,7 @@ class LoginController extends AbstractController
 
         if ($form->isSubmitted()) {
             $entityManager->flush();
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+           // return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('users/profil.html.twig', [
             'user' => $user,

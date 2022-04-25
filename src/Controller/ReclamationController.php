@@ -50,10 +50,11 @@ class ReclamationController extends AbstractController
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
 
+        $userid=$request ->getSession()->get('idUser');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamation->setEtat(0);
-            $reclamation->setUserId($idUser);
+            $reclamation->setUserId($userid);
             $entityManager->persist($reclamation);
             $entityManager->flush();
 
