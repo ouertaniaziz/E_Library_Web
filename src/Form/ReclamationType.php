@@ -12,9 +12,9 @@ class ReclamationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('reclamation')
-            ->add('etat')
-            ->add('user')
+
         ;
     }
 
