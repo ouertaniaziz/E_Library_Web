@@ -65,8 +65,8 @@ class UsersRepository extends ServiceEntityRepository
     public function findByEmail(String $value, String $v)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.email = :val')
-            ->andWhere('u.password = :vall')
+            ->where('u.emailUser = :val')
+            ->andWhere('u.mdpUser = :vall')
             ->setParameter('val', $value)
             ->setParameter('vall', $v)
             ->setMaxResults(1)

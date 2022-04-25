@@ -14,6 +14,12 @@
         <a class="nav-link" href="{{ path('app_offre_AccueilClient') }}">Nos
             offres</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_profil', {'idUser': app.session.get('idUser')}) }}">profil</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_login_login')}}">deconnexion</a>
+    </li>
     </ul>{% endblock %}
 {% block body %}
     <body class="main-layout">

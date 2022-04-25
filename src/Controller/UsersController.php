@@ -72,10 +72,11 @@ class UsersController extends AbstractController
         $form = $this->createForm(UsersType::class, $user);
         $Random_str = uniqid();
         $user->setMdpUser($Random_str);
-        $user->sendPassword($mailer);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted()) {
+            $user->sendPassword($mailer);
             $user->setMdpUser(md5($Random_str));
             $entityManager->persist($user);
             $entityManager->flush();
@@ -153,9 +154,9 @@ class UsersController extends AbstractController
 
         if ($form->isSubmitted()) {
             $code=$form->get('code')->getData();
-            $mdp = $form->get('mdpUser')->getData();
+           // $mdp = $form->get('mdpUser')->getData();
             $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['code' => $code]);
-            $user->setMdpUser(md5($mdp));
+            $user->setMdpUser(md5($form->get('mdpUser')->getData()));
             $manager = $this->getDoctrine()->getManager();
             $manager->flush();
             return $this->redirectToRoute('app_login_login', [], Response::HTTP_SEE_OTHER);

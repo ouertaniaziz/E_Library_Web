@@ -200,12 +200,12 @@
                 </li>
                 <li class="nav-item nav-category">Utilisateur</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#utiisateur-menu" aria-expanded="false" aria-controls="utiisateur-menu">
                         <i class="menu-icon mdi mdi-floor-plan"></i>
                         <span class="menu-title">Utiisateur</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic">
+                    <div class="collapse" id="utiisateur-menu">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('app_users_index') }}">Admin</a></li>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Client</a></li>
@@ -215,12 +215,12 @@
                 </li>
                 <li class="nav-item nav-category">Offre</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#offre-menu" aria-expanded="false" aria-controls="offre-menu">
                         <i class="menu-icon mdi mdi-floor-plan"></i>
                         <span class="menu-title">Offre</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic">
+                    <div class="collapse" id="offre-menu">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('app_offre_index') }}">Consulter les offres</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{ path('app_offre_new') }}">Ajouter offre</a></li>
@@ -230,12 +230,12 @@
                 </li>
                 <li class="nav-item nav-category">Abonnement</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#abonnement-menu" aria-expanded="false" aria-controls="abonnement-menu">
                         <i class="menu-icon mdi mdi-floor-plan"></i>
                         <span class="menu-title">Abonnement</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic">
+                    <div class="collapse" id="abonnement-menu">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('app_abonnement_index') }}">Consulter les abonnements</a></li>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Supprimer un abonnement</a></li>
@@ -245,12 +245,12 @@
                 </li>
                 <li class="nav-item nav-category">Emprunt</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#emprunt-menu" aria-expanded="false" aria-controls="emprunt-menu">
                         <i class="menu-icon mdi mdi-floor-plan"></i>
                         <span class="menu-title">Emprunt</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic">
+                    <div class="collapse" id="emprunt-menu">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('app_emprunt_index') }}">Consulter les emprunts</a></li>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Supprimer une emprunt</a></li>
@@ -258,6 +258,7 @@
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item nav-category">evenement</li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -273,7 +274,8 @@
 
                         </ul>
                     </div>
-                </li><li class="nav-item nav-category">participant</li>
+                </li>
+                <li class="nav-item nav-category">participant</li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="menu-icon mdi mdi-floor-plan"></i>
@@ -288,7 +290,8 @@
 
                         </ul>
                     </div>
-                </li><li class="nav-item nav-category">commentaire</li>
+                </li>
+                <li class="nav-item nav-category">commentaire</li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="menu-icon mdi mdi-floor-plan"></i>
@@ -299,6 +302,34 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link"  <a href="{{ path('app_commentaire_index') }}">Consulter les evenemnt</a></li>
+
+</ul>
+                    </div>
+                </li>
+                <li class="nav-item nav-category">Bibliothèque</li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#biblio-gestion-menu" aria-expanded="false" aria-controls="biblio-gestion-menu">
+                        <i class="menu-icon mdi mdi-floor-plan"></i>
+                        <span class="menu-title">Gestion</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="biblio-gestion-menu">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('app_auteur_index') }}">Auteurs</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('app_ouverage_index') }}">Ouverages</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#biblio-stats-menu" aria-expanded="false" aria-controls="biblio-stats-menu">
+                        <i class="menu-icon mdi mdi-floor-plan"></i>
+                        <span class="menu-title">Statistique</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="biblio-stats-menu">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Auteurs</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Ouverages</a></li>
 
                         </ul>
                     </div>
