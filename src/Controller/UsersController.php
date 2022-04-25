@@ -185,10 +185,11 @@ class UsersController extends AbstractController
     /**
      * @Route("/{idUser}/bloquer", name="app_users_bloquer", methods={"GET", "POST"})
      */
-    public function bloquer(Request $request, Users $user, EntityManagerInterface $entityManager): Response
-    {
+    public function bloquer(Request $request, Users $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    {   $user->bloquerMail($mailer);
         $user->setBloquer(1);
         $entityManager->flush();
+
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }
     /**
@@ -200,7 +201,6 @@ class UsersController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }
-
 
 
     /**

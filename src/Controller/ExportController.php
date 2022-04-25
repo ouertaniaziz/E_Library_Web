@@ -27,6 +27,7 @@ class ExportController extends AbstractController
     $sheet->getCell('B1')->setValue('Nom');
     $sheet->getCell('C1')->setValue('Prénom');
     $sheet->getCell('D1')->setValue('Email');
+    $sheet->getCell('D1')->setValue('Adresse');
 
     // Increase row cursor after header write
     $sheet->fromArray($this->getData(),null, 'A2', true);
@@ -49,6 +50,7 @@ class ExportController extends AbstractController
                 $Users->getNomUser(),
                 $Users->getPrenomUser(),
                 $Users->getEmailUser(),
+                $Users->getAdresse(),
             ];
         }
         return $list;

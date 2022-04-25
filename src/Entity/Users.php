@@ -315,4 +315,28 @@ class Users
         // ...
     }
 
+    public function bloquerMail(MailerInterface $mailer)
+    {
+
+        $email = (new TemplatedEmail())
+
+            ->from('rania.rhaiem@esprit.tn')
+            ->to('rania.rhaiem99@gmail.com')
+            ->subject("Avertissement")
+            ->htmlTemplate('login/bloquer.html.twig')
+          //   ->text('Votre compte a éte bloquer')
+          ->context([
+              'bloquer' => 'Votre compte a éte bloquer'
+          ])
+        ;
+
+
+
+        $mailer->send($email);
+
+
+        // ...
+    }
+
+
 }
