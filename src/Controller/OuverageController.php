@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\UploaderHelper;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 /**
  * @Route("/ouverage")
  */

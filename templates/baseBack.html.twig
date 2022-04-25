@@ -5,7 +5,6 @@
     <title>{% block title %}E-Library{% endblock %}</title>
     {% block stylesheets %}
         <!-- plugins:css -->
-        <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
         <link rel="stylesheet" href="{{ asset('Back/assets/vendors/feather/feather.css') }}">
         <link rel="stylesheet" href="{{ asset('Back/assets/vendors/mdi/css/materialdesignicons.min.css') }}">
         <link rel="stylesheet" href="{{ asset('Back/assets/vendors/ti-icons/css/themify-icons.css') }}">
@@ -25,7 +24,6 @@
 </head>
 
 <body>
-{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 <div class="container-scroller">
 
     <!-- partial:partials/_navbar.html -->
@@ -375,10 +373,6 @@
     <script src="{{ asset('Back/assets/js/todolist.js') }}"></script>
 
 
-    <!-- Flashy depends on jQuery -->
-    <script src="//code.jquery.com/jquery.js"></script>
-    <!-- Load Flashy default JavaScript -->
-    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 
     <!-- endinject -->
     <!-- Custom js for this page-->
