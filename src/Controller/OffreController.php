@@ -10,17 +10,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
+
 
 /**
  * @Route("/offre")
  */
 class OffreController extends AbstractController
+
 {
+
+
     /**
      * @Route("/", name="app_offre_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator ,FlashyNotifier $flashy): Response
     {
+
         $donnees = $entityManager
             ->getRepository(Offre::class)
             ->findAll();
@@ -29,6 +35,8 @@ class OffreController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             3// Nombre de résultats par page
         );
+        $flashy->success('Event created!', 'http://your-awesome-link.com');
+
         return $this->render('offre/index.html.twig', [
             'offres' => $offres,
         ]);
@@ -74,7 +82,7 @@ class OffreController extends AbstractController
     /**
      * @Route("/new", name="app_offre_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager ): Response
     {
         $offre = new Offre();
         $form = $this->createForm(OffreType::class, $offre);
