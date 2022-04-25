@@ -237,4 +237,25 @@ class UsersController extends AbstractController
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * @Route("/users/recherche", name="recherche", methods={"GET"})
+     */
+
+    public function recherche(Request $request ,UsersRepository $rep ) :Response
+    {
+        $rep = $this->getDoctrine()->getRepository(Users::class);
+        $requestString=$request->get('searchValue');
+        $user = $rep->findByNomUser($requestString);
+        return $this->render('users/recherche.html.twig', [
+            "users"=>$user
+        ]);
+    }
+
+    public function getRealEntities($entities){
+        foreach ($entities as $entity){
+            $realEntities[$entity->getIdUser()] = $entity->getNomUser();
+        }
+        return $realEntities;
+    }
+
 }

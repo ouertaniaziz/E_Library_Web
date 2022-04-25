@@ -1,0 +1,40 @@
+{% block contenpage %}
+
+<table id="users" class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Adresse</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.nomUser }}</td>
+            <td>
+                {{ user.prenomUser }}
+            </td>
+            <td><label class="badge badge-info" style="background-color: #ff6600;">{{ user.emailUser }}</label></td>
+            <td>{{ user.adresse }}</td>
+            <td style="width: 10%;">
+                <a class="btn btn-outline-primary btn-fw" href="{{ path('app_users_show', {'idUser': user.idUser}) }}">Afficher</a>
+                <a class="btn btn-outline-warning btn-fw" href="{{ path('app_users_edit', {'idUser': user.idUser}) }}">Modifier</a>
+                {% if user.bloquer==0 %}
+                    <a class="btn btn-outline-danger btn-fw" href="{{ path('app_users_bloquer', {'idUser': user.idUser}) }}">Bloquer</a>
+                {% else %}
+                    <a class="btn btn-outline-success btn-fw" href="{{ path('app_users_debloquer', {'idUser': user.idUser}) }}">Débloquer</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <div style="display: grid;">
+            <label style="width: 22%;margin: auto;margin-bottom: 13px;margin-top: 10px;border: 2px solid #0090e7;padding: 10px;border-radius: 20px;border-left: 2px solid red;border-right: 2px solid red;text-align: center; font-style: oblique;color: chartreuse;"> Pas d'utilisateurs trouvé</label>
+        </div>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
