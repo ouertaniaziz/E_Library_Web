@@ -66,7 +66,7 @@ class OuverageAdminController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Ouverage ajouté avec succès');
 
-            return $this->redirectToRoute('app_ouverage_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_ouverage_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ouverage/admin/new.html.twig', [

@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit Ouverage</h1>
 
-    {{ include('ouverage/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('ouverage/admin/_form.html.twig', {'button_label': 'Update'}) }}
 
     <button class="btn btn-primary"   href="{{ path('app_ouverage_index') }}">back to list</button>
 
-    {{ include('ouverage/_delete_form.html.twig') }}
+    {{ include('ouverage/admin/_delete_form.html.twig') }}
 {% endblock %}
