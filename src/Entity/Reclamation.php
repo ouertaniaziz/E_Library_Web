@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraint as Assert;
 /**
  * Reclamation
  *
@@ -22,9 +22,20 @@ class Reclamation
     private $idReclamation;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     */
+    private $userId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="reclamation", type="text", length=65535, nullable=false)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "[a-zA-Z]+"
+     * )
      */
     private $reclamation;
 
@@ -35,19 +46,21 @@ class Reclamation
      */
     private $etat = '0';
 
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id_user")
-     * })
-     */
-    private $user;
-
     public function getIdReclamation(): ?int
     {
         return $this->idReclamation;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(int $userId): self
+    {
+        $this->userId = $userId;
+
+        return $this;
     }
 
     public function getReclamation(): ?string
@@ -70,18 +83,6 @@ class Reclamation
     public function setEtat(int $etat): self
     {
         $this->etat = $etat;
-
-        return $this;
-    }
-
-    public function getUser(): ?Users
-    {
-        return $this->user;
-    }
-
-    public function setUser(?Users $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }

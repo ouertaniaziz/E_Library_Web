@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Reclamation;
+use App\Entity\Users;
 use App\Form\ReclamationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @Route("/reclamation")
@@ -30,19 +32,32 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_reclamation_new", methods={"GET", "POST"})
+     * @Route("/cc"), name="display_client", methods={"GET"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function index_client(): Response
+    {
+
+
+        return $this->render('client/index.html.twig');
+    }
+
+    /**
+     * @Route("/new/{idUser}", name="app_reclamation_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager ,$idUser ): Response
     {
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation->setEtat(0);
+            $reclamation->setUserId($idUser);
             $entityManager->persist($reclamation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reclamation/new.html.twig', [
