@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,6 +24,7 @@ class Auteur
      * @ORM\Column(name="ID_auteur", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("main")
      */
     private $idAuteur;
 
@@ -29,6 +32,7 @@ class Auteur
      * @ORM\Column(name="Nom_auteur", type="string", length=50, nullable=false)
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Groups("main")
      */
     private string $nomAuteur;
 
@@ -38,6 +42,7 @@ class Auteur
      * @ORM\Column(name="Prenom_auteur", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="prenom auteur est obligatoir")
      * @Assert\NotNull()
+     * @Groups("main")
      */
     private string $prenomAuteur;
 
@@ -45,18 +50,27 @@ class Auteur
      * @var string
      *
      * @ORM\Column(name="photo_auteur", type="string", length=50, nullable=true)
+     * @Groups("main")
      */
     private $photoAuteur;
 
     /**
      * @ORM\OneToMany(targetEntity=Ouverage::class, mappedBy="auteur")
+     *
      */
     private $ouverages;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Groups("main")
+     */
+    private $fullname;
 
 
     public function __construct()
     {
         $this->ouverages = new ArrayCollection();
+        $this->fullname = $this->getPrenomAuteur() . ' ' . $this->getNomAuteur();
     }
 
     /**
@@ -162,14 +176,22 @@ class Auteur
         return "/uploads/auteurs_photo/" . $this->photoAuteur;
     }
 
-    public function getFullName(): ?string
+    public function getFullname(): ?string
     {
-        return $this->getNomAuteur() . " " . $this->getPrenomAuteur();
+        return $this->getPrenomAuteur() . " " . $this->getNomAuteur();
     }
+
 
     public function __toString(): string
     {
-        return $this->nomAuteur;
+        return $this->getFullName();
+    }
+
+    public function setFullname(string $fullname): self
+    {
+        $this->fullname = $fullname;
+
+        return $this;
     }
 
 

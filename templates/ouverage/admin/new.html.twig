@@ -1,7 +1,15 @@
 {% extends 'baseBack.html.twig' %}
 
 {% block title %}New Ouverage{% endblock %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+    <script src="{{ asset('Back/assets/js/algolia-autocomplete.js') }}"></script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('Back/assets/css/algolia-autocomplete.css') }}">
+{% endblock %}
 {% block body %}
     <h1>Create new Ouverage</h1>
 

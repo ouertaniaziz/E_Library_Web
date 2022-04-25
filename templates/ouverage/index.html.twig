@@ -1,29 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'home_page/HomePageClient.html.twig' %}
 
 {% block title %}Ouverage index{% endblock %}
 
 {% block body %}
-    <h1>Nous Livres</h1>
-{#
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Cover Livre</th>
+    <h1>Nos Livres</h1>
 
-                <th>Nom Livre</th>
-                <th>Genre Livre</th>
-                <th>Auteur</th>
-                <th>Prix Vente</th>
-                <th>Prix Emprunt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-#}
+        {# @var ouverage \Ouverage #}
         {% for ouverage in pagination %}
-            {#    <tr>
-                <td>
-             #}
                     <div class="row">
                     <div class="card col" style="width: 18rem;">
                         <img class="card-img-top" src="{{ asset(ouverage.imagePath) }}" alt="Card image cap">
@@ -39,28 +22,21 @@
                         </div>
                     </div>
 
+            <div class="col">
+                <div class="our_box">
+
+                        <strong>{{ ouverage.prixVente }} , 30</strong>
+                        <a class="read_more" href="{{ path('app_emprunt_new', { 'id_client' : 252 ,'id_livre' :ouverage.id , 'nbr_semaine':5}) }}">acheter</a>
+
+                </div>
+            </div>
+
                     <div>___________________________</div>
-
-                    {#  <img width="200" height="200" src="">
-                </td>
-                <td>{{ ouverage.nomLivre }}</td>
-                <td>{{ ouverage.genreLivre }}</td>
-                <td>{{ ouverage.auteur }}</td>
-                <td>{{ ouverage.prixVente }}</td>
-                <td>{{ ouverage.prixEmprunt }}</td>
-
-                <td>
-                    <a class="btn btn-xs btn-secondary" href="{{ path('app_ouverage_show', {'id': ouverage.id}) }}"><span class="fa fa-search-plus"></span></a>
-                </td>
-            </tr>
-            #}
         {% else %}
             <tr>
                 <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
- {#        </tbody>
-    </table>
- #}
+
     {{ knp_pagination_render(pagination) }}
 {% endblock %}

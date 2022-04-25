@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
 use App\Entity\Ouverage;
 use App\Form\OuverageType;
+use App\Repository\AuteurRepository;
 use App\Repository\OuverageRepository;
 use App\Service\UploaderHelper;
 use App\Service\UploadType;
@@ -11,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -121,5 +124,23 @@ class OuverageAdminController extends AbstractController
         }
 
         return $this->redirectToRoute('app_ouverage_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/api/list_auteur", methods={"GET"}, name="api_admin_list_auteur")
+     */
+    public function getAdminListAuteur(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $auteurs = $entityManager->getRepository(Auteur::class)->findAllMatching($request->get('query'));
+        return $this->json(
+            [
+                'auteurs' => $auteurs
+            ],
+            200,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
     }
 }

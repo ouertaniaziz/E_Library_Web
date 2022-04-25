@@ -118,14 +118,14 @@ class Users
     private $remember = '0';
 
     /**
-     * @var \Role
+     * @var Role
      *
      * @ORM\ManyToOne(targetEntity="Role",cascade={"persist"}))
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="role", referencedColumnName="id")
      * })
      */
-    private $role;
+    private Role $role;
 
     public function getIdUser(): ?int
     {
