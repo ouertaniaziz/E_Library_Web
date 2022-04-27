@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-
-    "content-hash": "9f3e2985ed52ae727a3b5446778e3f5e",
-
-    "content-hash": "dcad8dc8a4314a21ace9afc212955a5c",
-
+    "content-hash": "8d11cf2f81bbfa7a292a263b31f8fcbb",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2347,6 +2343,56 @@
                 "source": "https://github.com/mercuryseries/flashy-bundle/tree/v5.1.0"
             },
             "time": "2022-03-27T04:24:03+00:00"
+        },
+        {
+            "name": "mgilet/notification-bundle",
+            "version": "4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximilienGilet/notification-bundle.git",
+                "reference": "5dcd3f67d0c200b5d9fd81062d6fa0feffdbdda1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximilienGilet/notification-bundle/zipball/5dcd3f67d0c200b5d9fd81062d6fa0feffdbdda1",
+                "reference": "5dcd3f67d0c200b5d9fd81062d6fa0feffdbdda1",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "*",
+                "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0 || ^5.0",
+                "twig/twig": "*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mgilet\\NotificationBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maximilien Gilet",
+                    "email": "maximilien248@gmail.com"
+                }
+            ],
+            "description": "A simple Symfony 3 bundle for user notifications",
+            "keywords": [
+                "symfony notification bundle simple"
+            ],
+            "support": {
+                "issues": "https://github.com/maximilienGilet/notification-bundle/issues",
+                "source": "https://github.com/maximilienGilet/notification-bundle/tree/4.0"
+            },
+            "time": "2021-01-07T07:36:31+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -11144,9 +11190,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-
     "plugin-api-version": "2.2.0"
-
-    "plugin-api-version": "2.3.0"
-
 }

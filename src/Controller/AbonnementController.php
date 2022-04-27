@@ -9,6 +9,7 @@ use App\Form\AbonnementType;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Client;
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,8 @@ use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
 use Endroid\QrCode\Label\Font\NotoSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
+
+
 /**
  * @Route("/abonnement")
  */
@@ -47,13 +50,14 @@ class AbonnementController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id_client}/{id_offre}", name="app_abonnement_new", methods={"GET", "POST"})
+     * @Route("/new/{id_offre}", name="app_abonnement_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager ,$id_client,$id_offre, ): Response
+    public function new(Request $request, EntityManagerInterface $entityManager ,$id_offre  ): Response
     {    $offre = new offre();
         $client = new Users();
+        $userid= $request->getSession()->get('idUser');
         $abonnement = new Abonnement();
-        $client=$this->getDoctrine()->getRepository(Users::class)->find($id_client);
+        $client=$this->getDoctrine()->getRepository(Users::class)->find($userid);
         $offre = $this->getDoctrine()
             ->getRepository(Offre::class)
             ->find($id_offre);
@@ -89,6 +93,8 @@ class AbonnementController extends AbstractController
         $result->saveToFile(__DIR__.'/qrcode1.png');
 
 ####################### Fin test #################################
+
+
 
 
 
