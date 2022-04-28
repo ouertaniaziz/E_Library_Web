@@ -4,7 +4,7 @@
         <a class="nav-link" href="about.html"> About Us </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_ouverage_TestBook') }}">Nos Livres</a>
+        <a class="nav-link" href="{{ path('app_ouverage_index') }}">Nos Livres</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_evenement_AccueilUser') }}">Nos
@@ -14,8 +14,32 @@
         <a class="nav-link" href="{{ path('app_offre_AccueilUser') }}">Nos
             offres</a>
     </li>
-    </ul>{% endblock %}
-{% block login %}<div class="sign_btn"><a href="{{ path('app_login_login') }}">Login</a></div> {% endblock %}
+    </ul>
+
+    {% if not is_granted('ROLE_USER') %}
+        <div class="sign_btn"><a href="{{ path('app_loggin') }}">Login</a></div>
+
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+
+
+        <li class="nav-item dropdown" style="margin-right: 20px;">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <img class="nav-profile-img rounded-circle"
+                     src="{{ app.user.avatarUrl(35) }}" alt="user avatar">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ path('app_account') }}">Profil</a>
+                <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        </li>
+
+    {% endif %}
+{% endblock %}
+
+
+
 {% block body %}
     <body class="main-layout">
     <!-- loader  -->

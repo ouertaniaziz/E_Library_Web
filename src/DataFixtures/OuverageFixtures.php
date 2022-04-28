@@ -49,19 +49,29 @@ class OuverageFixtures extends BaseFixtures
         'Documentary',
         'Love Story'
     ];
-    #[NoReturn] protected function loadData(ObjectManager $em): void
+    private static array $ouverage_images = [
+        "cover1.jpg",
+        "cover2.jpg",
+        "cover3.jpg",
+        "cover5.jpeg",
+        "cover6.jpeg",
+        "cover7.jpeg",
+        "cover8.jpeg"
+    ];
+    protected function loadData(ObjectManager $em): void
     {
-        $auteurs = $em->getRepository(Auteur::class)->findAll();
-        for($i = 0; $i < 10; $i++) {
+        $this->createNew(10, 'main_ouverage', function($count) use ($em) {
+
             $ouverage = new Ouverage();
             $ouverage->setNomLivre($this->faker->randomElement(self::$ouverageTitles));
-            $ouverage->setImgLivre($this->faker->randomElement(self::$ouverageImages));
-            $ouverage->setAuteur($this->faker->randomElement($auteurs));
+            $ouverage->setImgLivre($this->faker->randomElement(self::$ouverage_images));
+            $ouverage->setAuteur($this->getRandomReference('main_auteurs'));
             $ouverage->setGenreLivre($this->faker->randomElement(self::$ouvrageGenre));
             $ouverage->setPrixEmprunt($this->faker->numberBetween(20, 90));
             $ouverage->setPrixVente($this->faker->numberBetween(100,500));
-            $em->persist($ouverage);
-        }
+
+            return $ouverage;
+        });
         $em->flush();
     }
 

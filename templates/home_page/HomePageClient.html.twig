@@ -1,31 +1,58 @@
 {% extends 'base.html.twig' %}
-{% block navigation %} <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="about.html"> About Us </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_ouverage_TestBook') }}">Nos Livres</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_evenement_AccueilUser') }}">Nos
-            événements</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_offre_AccueilClient') }}">Nos
-            offres</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_profil', {'idUser': app.session.get('idUser')}) }}">profil</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_login_login')}}">deconnexion</a>
-    </li>
-    </ul>{% endblock %}
+{% block navigation %}
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="about.html"> About Us </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_ouverage_index') }}">Nos Livres</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_evenement_AccueilUser') }}">Nos
+                événements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_offre_AccueilClient') }}">Nos
+                offres</a>
+        </li>
+        {% if not is_granted('ROLE_USER') %}
+            <div class="sign_btn"><a href="{{ path('app_loggin') }}">Login</a></div>
+
+        {% endif %}
+        {% if is_granted('ROLE_USER') %}
+
+
+            <li class="nav-item dropdown" style="margin-right: 20px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <img class="nav-profile-img rounded-circle"
+                         src="{{ app.user.avatarUrl(35) }}" alt="user avatar">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('app_account') }}">Profil</a>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            </li>
+
+
+            {#
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login_login') }}">deconnexion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_profil', {'idUser': app.user.id}) }}">profil</a>
+            </li>
+            <div class="sign_btn"><a href="{{ path('app_loggin') }}">Login</a></div>
+            #}
+
+        {% endif %}
+    </ul>
+{% endblock %}
 {% block body %}
     <body class="main-layout">
     <!-- loader  -->
     <div class="loader_bg">
-        <div class="loader"><img src="{{ asset('Front/images/loading.gif') }}" alt="#" /></div>
+        <div class="loader"><img src="{{ asset('Front/images/loading.gif') }}" alt="#"/></div>
     </div>
     <!-- end loader -->
     <!-- header -->
@@ -45,7 +72,7 @@
                 <img class="first-slide" src="{{ asset('Front/images/banner.jpg') }}" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption relative">
-                        <h1> <span>La lecture est </span> une amitié</h1>
+                        <h1><span>La lecture est </span> une amitié</h1>
                         <a href="#contact">Contact Us</a>
                     </div>
                 </div>
@@ -54,7 +81,7 @@
                 <img class="second-slide" src="{{ asset('Front/images/banner.jpg') }}" alt="Second slide">
                 <div class="container">
                     <div class="carousel-caption relative">
-                        <h1> <span>La lecture est </span> une amitié</h1>
+                        <h1><span>La lecture est </span> une amitié</h1>
                         <a href="#contact">Contact Us</a>
                     </div>
                 </div>
@@ -63,7 +90,7 @@
                 <img class="third-slide" src="{{ asset('Front/images/banner.jpg') }}" alt="Third slide">
                 <div class="container">
                     <div class="carousel-caption relative">
-                        <h1> <span>La lecture est </span> une amitié</h1>
+                        <h1><span>La lecture est </span> une amitié</h1>
                         <a href="#contact">Contact Us</a>
                     </div>
                 </div>
@@ -72,7 +99,7 @@
                 <img class="third-slide" src="{{ asset('Front/images/banner.jpg') }}" alt="four slide">
                 <div class="container">
                     <div class="carousel-caption relative">
-                        <h1> <span>La lecture est </span> une amitié</h1>
+                        <h1><span>La lecture est </span> une amitié</h1>
                         <a href="#contact">Contact </a>
                     </div>
                 </div>
@@ -84,7 +111,7 @@
                         <br>
                         <br>
                         <br>
-                        <h1> <span>La lecture est </span> une amitié</h1>
+                        <h1><span>La lecture est </span> une amitié</h1>
                         <a href="#contact">Contact Us</a>
 
                     </div>
@@ -102,14 +129,16 @@
     </div>
     <!-- end banner -->
     <!-- about -->
-    <div id="about"  class="about">
+    <div id="about" class="about">
         <div class="container">
             <div class="row d_flex">
                 <div class="col-md-7">
                     <div class="titlepage">
                         <h2>Web Development</h2>
                         <span></span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo </p>
                         <a class="read_more">Read More <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
@@ -123,7 +152,7 @@
     </div>
     <!-- end about -->
     <!-- mobile -->
-    <div id="mobile"  class="mobile">
+    <div id="mobile" class="mobile">
         <div class="container">
             <div class="row d_flex">
                 <div class="col-md-5">
@@ -135,7 +164,9 @@
                     <div class="titlepage">
                         <h2>Mobile App Development</h2>
                         <span></span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo </p>
                         <a class="read_more">Read More <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
@@ -157,7 +188,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="clients_box">
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration in some form, by injected humour, or randomised words which don't look
+                            even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
+                            sure there isn't anything embarrassing hidden in the middle of text.</p>
                     </div>
                     <div class="jonu">
                         <img src="{{ asset('images/cross_img.png') }}" alt="#"/>
@@ -192,7 +226,8 @@
                                 <input class="contactus" placeholder="Email" type="type" name="Email">
                             </div>
                             <div class="col-md-12">
-                                <textarea class="contactus" placeholder="Message" type="type" Message="Name">Message </textarea>
+                                <textarea class="contactus" placeholder="Message" type="type"
+                                          Message="Name">Message </textarea>
                             </div>
                             <div class="col-sm-12">
                                 <button class="send_btn">Send</button>

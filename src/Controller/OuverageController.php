@@ -21,11 +21,6 @@ class OuverageController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
-        /*
-        $ouverages = $entityManager
-            ->getRepository(Ouverage::class)
-            ->findAll();
-        */
         $queryBuilder = $entityManager->getRepository(Ouverage::class)->findAllQueryBuilder();
         $pagination = $paginator->paginate(
             $queryBuilder,

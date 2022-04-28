@@ -70,7 +70,6 @@ class Auteur
     public function __construct()
     {
         $this->ouverages = new ArrayCollection();
-        $this->fullname = $this->getPrenomAuteur() . ' ' . $this->getNomAuteur();
     }
 
     /**
@@ -103,6 +102,7 @@ class Auteur
     public function setNomAuteur(?string $nomAuteur): void
     {
         $this->nomAuteur = $nomAuteur;
+        $this->fullname .= " ".$nomAuteur;
     }
 
     /**
@@ -119,6 +119,7 @@ class Auteur
     public function setPrenomAuteur(?string $prenomAuteur): void
     {
         $this->prenomAuteur = $prenomAuteur;
+        $this->fullname = $prenomAuteur.$this->fullname;
     }
 
     /**

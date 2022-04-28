@@ -37,17 +37,26 @@ class AuteurFixtures extends BaseFixtures
         "Ralph"
     ];
 
+    private static $auteur_photos = [
+        "photo1.jpg",
+        "photo2.jpeg",
+        "photo3.jpeg",
+        "photo4.jpeg",
+        "photo5.jpeg",
+        "photo6.jpeg",
+        "photo7.jpeg"
+    ];
 
     protected function loadData(ObjectManager $em): void
     {
-        for ($i = 0; $i <= 20; $i++) {
-            $auteur = new Auteur();
-            $auteur->setNomAuteur($this->faker->randomElement(self::$lastnames));
-            $auteur->setPrenomAuteur($this->faker->randomElement(self::$firstnames));
-            $auteur->setPhotoAuteur("");
-            $em->persist($auteur);
-        }
-        $em->flush();
+        $this->createNew(10, 'main_auteurs', function($count) use ($em) {
 
+            $auteur = new Auteur();
+            $auteur->setNomAuteur($this->faker->lastName);
+            $auteur->setPrenomAuteur($this->faker->randomElement(self::$firstnames));
+            $auteur->setPhotoAuteur($this->faker->randomElement(self::$auteur_photos));
+            return $auteur;
+        });
+        $em->flush();
     }
 }
