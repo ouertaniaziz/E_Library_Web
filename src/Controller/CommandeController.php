@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Ouverage;
+use App\Entity\Users;
 use App\Form\CommandeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,67 +20,99 @@ class CommandeController extends AbstractController
     /**
      * @Route("/", name="app_commande_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $userid= $request->getSession()->get('idUser');
+        $client=$this->getDoctrine()->getRepository(Users::class)->find($userid);
         $commandes = $entityManager
             ->getRepository(Commande::class)
-            ->findAll();
+            ->findOneBy(
+                [
+                    'idUser'=>$client->getIdUser() ,
+
+                ]);
+
 
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandes,
+            'ouverages' => $commandes->getIdOuvrage(),
+
         ]);
     }
 
     /**
      * @Route("/new", name="app_commande_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $commande = new Commande();
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($request);
+    public function new(Request $request, EntityManagerInterface $entityManager ): Response
+    { $id_livre=3;
+        $ouverage=$this->getDoctrine()->getRepository(Ouverage::class)->find($id_livre);
+        $userid= $request->getSession()->get('idUser');
+        $client=$this->getDoctrine()->getRepository(Users::class)->find($userid);
+$commande= $this->getDoctrine()->getRepository(Commande::class )->findOneBy(
+    [
+    'idUser'=>$client->getIdUser() ,
+    'etat'=>0,
+]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($commande);
-            $entityManager->flush();
+if ($commande != null )
+{
+    $commande->addIdOuvrage($ouverage);
+    $commande->setPrixTotal($commande->getPrixTotal()+$ouverage->getPrixVente());
+    $entityManager->flush();
+}
+else
+{
+    $commande1= new Commande();
+    $commande1->setPrixTotal($ouverage->getPrixVente());
+    $commande1->setIdUser($client);
+    $commande1->setEtat(0);
+    $commande1->addIdOuvrage($ouverage);
+    $entityManager->persist($commande1);
+    $entityManager->flush();
+}
 
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
-        }
+        return $this->render('home_page/HomePageClient.html.twig');
+    }
 
-        return $this->render('commande/new.html.twig', [
-            'commande' => $commande,
-            'form' => $form->createView(),
+    /**
+     * @Route("/{idCommande}/{id}", name="app_commande_show", methods={"GET"})
+     */
+    public function show(Commande $commandes , Ouverage $ouverage,EntityManagerInterface $entityManager ): Response
+    { $commandes->removeIdOuvrage($ouverage);
+        $entityManager->flush();
+
+        return $this->render('commande/index.html.twig', [
+            'commandes' => $commandes,
+            'ouverages' => $commandes->getIdOuvrage(),
+
         ]);
     }
 
     /**
-     * @Route("/{idCommande}", name="app_commande_show", methods={"GET"})
+     * @Route("/checkout", name="app_commande_checkout", methods={"GET"})
      */
-    public function show(Commande $commande): Response
+    public function payer(Request $request): Response
+    {
+        return $this->render('commande/checkout.html.twig');
+    }
+
+    /**
+     * @Route("/{idCommande/{idouvrage}", name="app_commande_supp", methods={"GET"})
+     */
+    public function supprimerouvrage(Commande $commande): Response
     {
         return $this->render('commande/show.html.twig', [
             'commande' => $commande,
         ]);
     }
 
+
     /**
      * @Route("/{idCommande}/edit", name="app_commande_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('commande/edit.html.twig', [
-            'commande' => $commande,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('commande/checkout.html.twig');
     }
 
     /**
