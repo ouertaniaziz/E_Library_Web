@@ -87,12 +87,7 @@ class Ouverage
      */
     private $idCommande;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="ouverages")
-     * @ORM\JoinColumn(name="auteur_id", referencedColumnName="ID_auteur")
-     */
-    private $auteur;
-
+   
     /**
      * Constructor
      */

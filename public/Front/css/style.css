@@ -204,7 +204,7 @@ button {
 }
 
 .full {
-     float: left;
+     float: right;
      width: 100%;
 }
 
@@ -443,7 +443,10 @@ button {
      transition: ease-in all 0.5s;
 }
 
-
+.detailcommande {
+     text-align: left;
+     padding-bottom: 40px;
+}
 /** banner section **/
 
 .titlepage {

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * Emprunt
@@ -104,6 +106,30 @@ class Emprunt
 
         return $this;
     }
+    public function sendQREMPRUNT(MailerInterface $mailer , $emailddest)
+    {
 
+        $email = (new TemplatedEmail())
+
+            ->from('rania.rhaiem@esprit.tn')
+            ->to($emailddest)
+
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject("Confirmation Emprunt")
+            ->htmlTemplate('offre/empruntQrcode.html.twig')
+            //   ->text('This is your password :'.$this->code)
+            ->embedFromPath('C:\xampp\htdocs\E_Library_Web\src\Controller\qrcode_emprunt.png', 'emprunt')
+        ;
+
+
+
+        $mailer->send($email);
+
+
+        // ...
+    }
 
 }

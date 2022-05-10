@@ -19,8 +19,18 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_login_login')}}">deconnexion</a>
-    </li>
-    </ul>{% endblock %}
+
+    </ul>
+<li class="nav-item">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+        <div class="full">
+            <div class="center-desk">
+                <div class="logo">
+                    <a href="{{ path('app_commande_index')}}"><img src="{{ asset('Front/images/panier.png') }}" alt="#"/></a>
+                </div>
+            </div>
+        </div>
+    </div>{% endblock %}
 {% block body %}
     <body class="main-layout">
     <!-- loader  -->

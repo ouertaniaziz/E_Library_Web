@@ -3,35 +3,68 @@
 {% block title %}Commande index{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+    <h1>Detailes de panier</h1>
+    <div>
+        <div class="detailcommande">
+            <h2> la commande numero {{ commandes.idCommande }} </h2>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdCommande</th>
-                <th>PrixTotal</th>
-                <th>Etat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.idCommande }}</td>
-                <td>{{ commande.prixTotal }}</td>
-                <td>{{ commande.etat }}</td>
-                <td>
-                    <a href="{{ path('app_commande_show', {'idCommande': commande.idCommande}) }}">show</a>
-                    <a href="{{ path('app_commande_edit', {'idCommande': commande.idCommande}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    </div>
+    <div class="ourwork">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Les livres ajouter au panier </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+    {% for ouverage in ouverages %}
 
-    <a href="{{ path('app_commande_new') }}">Create new</a>
+                <div class="col-md-4">
+                    <div class="our_box">
+                        <div class="jonu">
+                            <img src="{{ asset('Front/images/LOGO1.png') }}" alt="#"/>
+                            <h3>  {{ ouverage.nomLivre }}</h3>
+                            <strong>{{ ouverage.prixVente }}</strong>
+                       {#      <a class="read_more" href="{{ path('app_commande_supp', { 'idCommande' :2 , 'idouvrage':5}) }}">supprimer</a>#}
+
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="detailcommande">
+        <h2> le prix total de la commande est {{ commandes.prixTotal }}  Dinars </h2>
+    </div>
+
+    <div class="detailcommande">
+        <h2> Cette commande n'est pas encore payée {{ commandes.etat }}</h2>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                    <a href="{{ path('app_commande_edit', {'idCommande': commandes.idCommande}) }}">payer</a>
+
+
+
+
+
+
+    {#    <a href="{{ path('app_commande_checkout') }}">Create new</a>#}
 {% endblock %}

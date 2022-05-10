@@ -139,6 +139,12 @@
     "markbaker/matrix": {
         "version": "3.0.0"
     },
+    "mercuryseries/flashy-bundle": {
+        "version": "v5.1.0"
+    },
+    "mgilet/notification-bundle": {
+        "version": "4.0"
+    },
     "monolog/monolog": {
         "version": "1.27.0"
     },
