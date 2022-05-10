@@ -28,6 +28,8 @@ class EvenementController extends AbstractController
             'evenements' => $evenements,
         ]);
     }
+
+    //vfdjkgdfkjhfdkj
     /**
      * @Route("/AccueilUser", name="app_evenement_AccueilUser")
      */

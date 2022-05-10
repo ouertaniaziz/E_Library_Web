@@ -28,7 +28,7 @@ class CommentaireController extends AbstractController
             'commentaires' => $commentaires,
         ]);
     }
-
+//verifierrrr
     /**
      * @Route("/new", name="app_commentaire_new", methods={"GET", "POST"})
      */
