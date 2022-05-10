@@ -1,112 +1,105 @@
 {% extends 'baseBack.html.twig' %}
-
-
-
 {% block body %}
-<div class="main-panel">
-    <div class="content-wrapper">
-        <div class="page-header">
-            <h3 class="page-title">ADMIN </h3>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex">
-                            <div class="col-md-6">
-                                <h4 class="card-title">Utilisateurs</h4>
-                            </div>
-                            <form method="post" class="forms-sample" style="margin-left: 68px;border-right: 2px solid #666a74;" >
-                                <div class="form-group col-md-4" style="display: flex; width: 100%!important; margin: 0px!important;">
-
-                                    <div class="form-check">
-                                        <label class="form-check-label" style="width: 68px;margin-left: -2px;margin-right: 10px;color: black;">
-                                            <a  type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="email" href="{{ path('app_users_sortper')}}"> </a> Personnel </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label" style="width: 78px;margin-left: -2px;margin-right: 10px;color: black;">
-                                            <a type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="firstname"href="{{ path('app_users_sortcli')}}"></a> Client </label>
-                                    </div>
-                                    <a href="{{ path('app_users_index')}}" class="btn btn-success btn-fw"> Reset</a>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title">ADMIN </h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex">
+                                <div class="col-md-6">
+                                    <h4 class="card-title">Utilisateurs</h4>
                                 </div>
-                            </form>
-                            <a style="margin-top: 3px;" href="{{ path('app_users_new') }}"><i style="    margin-left: 6px;border: 2px solid #ff6600;border-radius: 50%;zoom: 1.6;padding: 4px;color: #ff6600;padding-bottom: 1px;"class="mdi mdi-note-plus"></i></a>
-                           {# <a href="{{ path('app_users_export') }}/export/xlsx" class="btn btn-info">Export to .xlsx</a>#}
 
-                        </div>
-                        <p class="card-description">
-                            seule une personne disposant de privilèges administratifs a accès à cette page</code>
-                        </p>
-                        <ul class="navbar-nav w-100">
-                            <li class="nav-item w-100">
-                                <form name="Search-method" id="Search-method" method="post" class="forms-sample" style="display: flex">
-                                    <div class="form-group col-md-3">
-                                        <label style="margin-top: 11px;margin-left: 10px;margin-right: 14px;border-bottom: 6px solid #0090e7;padding-bottom: 7px;border-bottom-style: dotted;">Option de Recherche</label>
-                                        <select name="optionsearch" class="js-example-basic-single" style="width: 200px;height: 38px; color: white; background-color: #191c24; border-radius: 4px;text-align: center;border: 2px solid #0090e7;margin-right: 15px;">
-                                            <option value="email">Role</option>
-                                            <option value="firstname">Email</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-9">
-                                        <div class="input-group">
-                                            <input name="Search" type="text" class="form-control" placeholder="Recherche" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-sm btn-primary" type="Submit">Recherche</button>
-                                            </div>
+                                <form method="post" class="forms-sample" style="margin-left: 68px;border-right: 2px solid #666a74;" >
+                                    <div class="form-group col-md-4" style="display: flex; width: 100%!important; margin: 0px!important;">
+                                        <div class="form-check">
+                                            <label class="form-check-label" style="width: 68px;margin-left: -2px;margin-right: 10px;color: black;">
+                                                <a  type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="email" href="{{ path('app_users_sortper')}}"> </a> Personnel </label>
                                         </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label" style="width: 78px;margin-left: -2px;margin-right: 10px;color: black;">
+                                                <a type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="firstname"href="{{ path('app_users_sortcli')}}"></a> Client </label>
+                                        </div>
+                                        <a href="{{ path('app_users_index')}}" class="btn btn-success btn-fw"> Reset</a>
                                     </div>
                                 </form>
-                            </li>
-                        </ul>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
+                                <a style="margin-top: 3px;" href="{{ path('app_users_new') }}"><i style="    margin-left: 6px;border: 2px solid #ff6600;border-radius: 50%;zoom: 1.6;padding: 4px;color: #ff6600;padding-bottom: 1px;"class="mdi mdi-note-plus"></i></a>
 
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Email</th>
-                                    <th>Adresse</th>
-                                    <th>Abonnement</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for user in users %}
-                                    <tr>
-                                        <td>{{ user.nomUser }}</td>
-                                        <td>
-                                            {{ user.prenomUser }}
-                                        </td>
-                                        <td><label class="badge badge-info" style="background-color: #ff6600;">{{ user.emailUser }}</label></td>
-                                        <td>{{ user.adresse }}</td>
-                                        <td>{{ user.abonnement }}</td>
-                                        <td style="width: 10%;">
-                                            <a class="btn btn-outline-primary btn-fw" href="{{ path('app_users_show', {'idUser': user.idUser}) }}">Afficher</a>
-                                            <a class="btn btn-outline-warning btn-fw" href="{{ path('app_users_edit', {'idUser': user.idUser}) }}">Modifier</a>
-                                            {% if user.bloquer==0 %}
-                                            <a class="btn btn-outline-danger btn-fw" href="{{ path('app_users_bloquer', {'idUser': user.idUser}) }}">Bloquer</a>
-                                            {% else %}
-                                            <a class="btn btn-outline-success btn-fw" href="{{ path('app_users_debloquer', {'idUser': user.idUser}) }}">Débloquer</a>
-                                                {% endif %}
-                                        </td>
-                                    </tr>
-                                {% else %}
-                                    <div style="display: grid;">
-                                        <label style="width: 22%;margin: auto;margin-bottom: 13px;margin-top: 10px;border: 2px solid #0090e7;padding: 10px;border-radius: 20px;border-left: 2px solid red;border-right: 2px solid red;text-align: center; font-style: oblique;color: chartreuse;"> Pas d'utilisateurs trouvé</label>
-                                    </div>
-                                {% endfor %}
 
-                                </tbody>
-                            </table>
+                            </div>
+                            <p class="card-description">
+                                seule une personne disposant de privilèges administratifs a accès à cette page</code>
+                            </p>
+                            <ul class="navbar-nav w-100">
+                                <li class="nav-item w-100">
+                                    <form name="Search-method" id="Search-method" method="GET" class="forms-sample" style="display: flex">
+                                        <div class="form-group col-md-3">
+                                            <label style="margin-top: 11px;margin-left: 10px;margin-right: 14px;border-bottom: 6px solid #0090e7;padding-bottom: 7px;border-bottom-style: dotted;">Option de Recherche</label>
+                                            <a class="btn btn-outline-success btn-fw" href="{{ path('export')}}">Export</a>
+                                        </div>
 
+                                    </form>
+                                </li>
+                            </ul>
+
+
+
+                            <div class="input-group custom-search-form">
+                                <input type="text" id="search" class="form-control" placeholder="Search here">
+                            </div>
+
+                            <div class="row" id="all">
+                                {% include 'users/recherche.html.twig' %}
+                            </div>
+                            <div class="row" id="search">
+                            </div>
+                            <br><br><br><br>
+                            <script src="{{ asset('assets/js/jquery.js') }}"></script>
+                            <script
+                                    src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')}}">
+                            </script>
+                            <script>
+                                $( document ).ready(function() {
+                                    var currentRequest = null;
+                                    $("#search").keyup(function(e){
+                                        /* La variable value va prendre la valeur insérer dans le champ de texte
+                                        afin d’effectuer la recherche */
+                                        var value = $(this).val();
+                                        if(currentRequest != null) {
+                                            currentRequest.abort();
+                                        }
+                                        /* Ajax est lancé lors du remplissage du champ texte dont l’id est
+                                        « search » pour faire la recherche */
+                                        currentRequest = $.ajax({
+                                            url : "{{ path('recherche') }}",
+                                            type : 'GET',
+                                            data: {
+                                                'searchValue' : value
+                                            },
+                                            success : function(retour)
+                                            {
+                                                $('#all').html(retour);
+                                            },
+                                        });
+                                        return false;
+                                    });
+                                });
+                            </script>
+
+
+                        </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 

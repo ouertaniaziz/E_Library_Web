@@ -75,11 +75,22 @@ class UsersRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findByEmailA(String $value)
+    public function findByEmailA(String $requestString)
     {
         return $this->createQueryBuilder('u')
             ->where('u.email = :val')
-            ->setParameter('val', $value)
+            ->setParameter('val', $requestString)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findByNomUser(String $requestString)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.nomUser = :val')
+            ->setParameter('val', $requestString)
             ->setMaxResults(1)
             ->getQuery()
             ->getResult()

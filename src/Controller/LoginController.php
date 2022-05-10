@@ -30,23 +30,27 @@ class LoginController extends AbstractController
         if ($form->isSubmitted() ) {
             $email = $form->get('emailUser')->getData();
             $mdp = $form->get('mdpUser')->getData();
-           // $bdd = $manager->getRepository(Users::class);
+            // $bdd = $manager->getRepository(Users::class);
             if ( $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['emailUser' => $email,'mdpUser' => md5($mdp)])) {
                 if($user->getBloquer()==1)
-                { echo "<div class='p-3 mb-2 bg-danger'>ce compte est bloquer</div>";}
-                if($user->getRole()->getRole()=='client'){
-                    $ok=$rep->findByEmail($user->getEmailUser(),$user->getMdpUser());
-                    //    $session = new Session();
-                    //  $session->set('emailUser', $email);
-                    $session = $request->getSession();
-                    $session->set('user',$ok);
-                    $session->set('idUser',$ok[0]->getIdUser());
-                    return $this->redirectToRoute('app_home');
-                }
-                else {return $this->redirectToRoute('app_users_index');}
-            } else{
+               // { echo "<div class='p-3 mb-2 bg-danger'>ce compte est bloquer</div>";}
+                    $this->addFlash('error', "ce compte est bloquer");
+
+                else {
+                    if($user->getRole()->getRole()=='client'){
+                        $ok=$rep->findByEmail($user->getEmailUser(),$user->getMdpUser());
+                        // $session = new Session();
+                        // $session->set('emailUser', $email);
+                        $session = $request->getSession();
+                        $session->set('user',$ok);
+                        $session->set('idUser',$ok[0]->getIdUser());
+                        return $this->redirectToRoute('app_home');
+                    }
+                    else {return $this->redirectToRoute('app_users_index');}
+                }} else{
                 echo "<div class='p-3 mb-2 bg-danger'>ce compte n'existe pas</div>";
             }
+
         }
 
         return $this->render('login/login.html.twig',
@@ -66,7 +70,7 @@ class LoginController extends AbstractController
 
         if ($form->isSubmitted()) {
             $entityManager->flush();
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+           // return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('users/profil.html.twig', [
             'user' => $user,
@@ -84,7 +88,7 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('app_login_login');
         }else{
             return $this->render('home_page/HomePageClient.html.twig',
-                ['controller_name'=>'HomeController',
+                ['controller_name'=>'LoginController',
                     'user'=>$user
                 ]);
         }
@@ -92,4 +96,3 @@ class LoginController extends AbstractController
 
 
 }
-
